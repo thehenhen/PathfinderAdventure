@@ -12,7 +12,7 @@ public class Starting {
         JFrame frame = new JFrame("Graphical Greeting");
         frame.setSize(800,500);
         try{
-            image = ImageIO.read(new File("C:\\Users\\probi\\Downloads\\PathFinderAdventure\\PathfinderAdventure\\background.jpg"));
+            image = ImageIO.read(new File("background.jpg"));
         }
         catch(IOException e){
             e.printStackTrace();
