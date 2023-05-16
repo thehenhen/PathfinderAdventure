@@ -17,9 +17,9 @@ class mainDraw extends JComponent {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
 
-    if(keyC.keyPressed()){
+    //if(keyC.keyPressed()){
 
-    }
+    //}
 
 
     g.setColor(Color.BLACK);
