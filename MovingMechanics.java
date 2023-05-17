@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-public class MainFrame extends JFrame implements KeyListener{
+public class MovingMechanics extends JFrame implements KeyListener{
     int x = 0;
     int y = 0;
     int inc;
@@ -16,11 +16,11 @@ public class MainFrame extends JFrame implements KeyListener{
     boolean down=false;
     boolean up=false;
 
-    public MainFrame() {
+    public MovingMechanics() {
         addKeyListener(this);
         Timer timer = new Timer(40, new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                MainFrame.this.repaint();
+                MovingMechanics.this.repaint();
             }
         });
         timer.start();
@@ -104,10 +104,10 @@ public class MainFrame extends JFrame implements KeyListener{
     }
 
     public static void main(String[] args) {
-        MainFrame mainFrame = new MainFrame();
-        mainFrame.setSize(800, 500);
-        mainFrame.setResizable(false);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setVisible(true);
+        MovingMechanics frame = new MovingMechanics();
+        frame.setSize(800, 500);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 }
