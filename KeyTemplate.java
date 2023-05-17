@@ -7,12 +7,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-public class Template extends JFrame implements KeyListener{
-    public Template() {
+public class KeyTemplate extends JFrame implements KeyListener{
+    public KeyTemplate() {
         addKeyListener(this);
         Timer timer = new Timer(40, new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                Template.this.repaint();
+                KeyTemplate.this.repaint();
             }
         });
         timer.start();
@@ -39,10 +39,10 @@ public class Template extends JFrame implements KeyListener{
         
     }
     public static void main(String[] args) {
-        MainFrame mainFrame = new MainFrame();
-        mainFrame.setSize(800, 500);
-        mainFrame.setResizable(false);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setVisible(true);
+        KeyTemplate frame = new KeyTemplate();
+        frame.setSize(800, 500);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 }
