@@ -46,6 +46,7 @@ public class Starting extends JFrame implements MouseListener,MouseMotionListene
         y=e.getY();
         if(x>345 && x<455 && y>250 && y<290){
             System.out.println("start");
+            starting=false;
         }
     }
     public void mouseEntered(MouseEvent e) {}
@@ -67,6 +68,7 @@ public class Starting extends JFrame implements MouseListener,MouseMotionListene
     }
 
     public void paint(Graphics g) {
+        if(starting){
         update();
 
         // BACKGROUND
@@ -84,6 +86,7 @@ public class Starting extends JFrame implements MouseListener,MouseMotionListene
         g.setColor(Color.yellow);
         g.drawString("PLAY",350,285);
         g.drawString("(" + x + "," + y + ")", x, y);
+        }
     }
 
     public void update(){

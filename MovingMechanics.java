@@ -5,9 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class MovingMechanics extends JFrame implements KeyListener{
+
+public class MovingMechanics extends JPanel implements KeyListener{
     int x = 0;
     int y = 0;
     int inc;
@@ -15,6 +17,7 @@ public class MovingMechanics extends JFrame implements KeyListener{
     boolean left=false;
     boolean down=false;
     boolean up=false;
+    boolean moving=true;
 
     public MovingMechanics() {
         addKeyListener(this);
@@ -106,8 +109,6 @@ public class MovingMechanics extends JFrame implements KeyListener{
     public static void main(String[] args) {
         MovingMechanics frame = new MovingMechanics();
         frame.setSize(800, 500);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 }
