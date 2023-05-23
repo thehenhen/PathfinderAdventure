@@ -1,26 +1,42 @@
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
-import javax.imageio.ImageIO;
-import java.io.*;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-//import javax.swing.JFrame;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 
-public class Runner 
+public class Runner extends JFrame implements KeyListener,MouseListener
 {
     private boolean shouldStop = false;
 
     private boolean pause = false;
 
-    Starting start = new Starting();
-    MovingMechanics move = new MovingMechanics();
+    Menu menu = new Menu();
+    FirstLevel first = new FirstLevel();
+
+    public Runner(){
+        menu.addKeyListener(this);
+    }
+
+    public void keyPressed(KeyEvent e) {
+        if(first.first){
+            first.keyPressed(e);
+        }
+    }
+    
+    public void keyReleased(KeyEvent e) {
+        if(first.first){
+            first.keyReleased(e);
+        }
+    }
+
+    public void keyTyped(KeyEvent e) {}
+    
+    public void mouseClicked(MouseEvent e) {
+        if(first.first){
+            first.mouseClicked(e);
+        }
+    }
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {}
 
     public void shouldStop() {
         this.shouldStop = true;
@@ -41,20 +57,18 @@ public class Runner
             }
             if( !pause )
             {
-                if(start.starting){
-                    start.repaint();
-                    start.setSize(800,500);
-                    start.setResizable(false);
-                    start.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    start.setVisible(true);
+                if(menu.menu){
+                    menu.repaint();
+                    menu.setSize(800,500);
+                    menu.setResizable(false);
+                    menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    menu.setVisible(true);
                 }
-                else if(move.moving){
-                    move.repaint();
-
-                    start.add(move);
-                    start.setVisible(true);
+                else if(first.first){
+                    first.repaint();
+                    menu.add(first);
+                    menu.setVisible(true);
                 }
-
             }
         }
     }

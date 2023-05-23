@@ -13,16 +13,16 @@ import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Starting extends JFrame implements MouseListener,MouseMotionListener{
+public class Menu extends JFrame implements MouseListener,MouseMotionListener{
     Image image;
     int x=0;
     int y=0;
-    boolean starting=true;
+    boolean menu=true;
     Font largeSerifFont;
     Font smallSerifFont;
     Font smallestSerifFont;
 
-    public Starting(){
+    public Menu(){
         try {
             image = ImageIO.read(new File("background.jpg"));
         }catch (Exception e){
@@ -35,7 +35,7 @@ public class Starting extends JFrame implements MouseListener,MouseMotionListene
         addMouseMotionListener(this);
         Timer timer = new Timer(50, new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                Starting.this.repaint();
+                Menu.this.repaint();
             }
         });
         timer.start();
@@ -46,7 +46,7 @@ public class Starting extends JFrame implements MouseListener,MouseMotionListene
         y=e.getY();
         if(x>345 && x<455 && y>250 && y<290){
             System.out.println("start");
-            starting=false;
+            menu=false;
         }
     }
     public void mouseEntered(MouseEvent e) {}
@@ -60,7 +60,7 @@ public class Starting extends JFrame implements MouseListener,MouseMotionListene
     public void mouseDragged(MouseEvent e) {}
 
     public static void main (String[] args){
-        Starting frame = new Starting();
+        Menu frame = new Menu();
         frame.setSize(800,500);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,24 +68,23 @@ public class Starting extends JFrame implements MouseListener,MouseMotionListene
     }
 
     public void paint(Graphics g) {
-        if(starting){
-        update();
+        if(menu){
+            update();
 
-        // BACKGROUND
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, getWidth(), getHeight());
+            // BACKGROUND
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, getWidth(), getHeight());
 
-        // DRAW STUFF HERE
-        g.drawImage(image,0,0,800,500,null);
-        g.setFont(largeSerifFont);
-        g.setColor(Color.orange);
-        g.drawString("PATHFINDER", 150, 150);
-        g.setFont(smallSerifFont);
-        g.drawString("ADVENTURE", 210, 200);
-        g.setFont(smallestSerifFont);
-        g.setColor(Color.yellow);
-        g.drawString("PLAY",350,285);
-        g.drawString("(" + x + "," + y + ")", x, y);
+            // DRAW STUFF HERE
+            g.drawImage(image,0,0,800,500,null);
+            g.setFont(largeSerifFont);
+            g.setColor(Color.orange);
+            g.drawString("PATHFINDER", 150, 150);
+            g.setFont(smallSerifFont);
+            g.drawString("ADVENTURE", 210, 200);
+            g.setFont(smallestSerifFont);
+            g.setColor(Color.yellow);
+            g.drawString("PLAY",350,285);
         }
     }
 
