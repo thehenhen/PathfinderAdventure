@@ -1,15 +1,16 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.imageio.ImageIO;
+import java.io.*;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import javax.swing.JPanel;
 import javax.swing.Timer;
-import javax.imageio.ImageIO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FirstLevel extends JPanel implements KeyListener,MouseListener,MouseMotionListener{
     int x = 0;
@@ -21,13 +22,30 @@ public class FirstLevel extends JPanel implements KeyListener,MouseListener,Mous
     boolean left=false;
     boolean down=false;
     boolean up=false;
+    
+    boolean cright=true;
+    boolean cleft=true;
+    boolean cdown=true;
+    boolean cup=true;
+
     boolean first=true;
+    boolean mapOpen = false;
+    Image map;
+    Image mapIcon;
+
+    Wall wall1;
 
     public FirstLevel() {
+        try {
+            map = ImageIO.read(new File("map1.png"));
+            mapIcon = ImageIO.read(new File("mapIcon.png"));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         addKeyListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
-
+        wall1= new Wall(1,100,100,150,100);
         Timer timer = new Timer(40, new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 FirstLevel.this.repaint();
@@ -68,7 +86,9 @@ public class FirstLevel extends JPanel implements KeyListener,MouseListener,Mous
     public void keyTyped(KeyEvent e) {}
 
     public void mouseClicked(MouseEvent e) {
-        System.out.println("click");
+        if(mouseDetect(700,750,25,75)){
+            mapOpen=!mapOpen;
+        }
     }
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
@@ -94,33 +114,42 @@ public class FirstLevel extends JPanel implements KeyListener,MouseListener,Mous
         //DRAW STUFF HERE
         g.setColor(Color.BLACK);
         for(int i=0;i<800;i+=50){
-            g.fillRect(i-x,-y,20,500);
+            //g.fillRect(i-x,-y,20,500);
         }
         g.setColor(Color.PINK);
-        g.fillRect(375,225,50,50);
-        
+        g.fillRect(400,250,50,50);
 
+        wall1.display(g,this);
 
         g.setColor(Color.LIGHT_GRAY);
         if(mouseDetect(700,750,25,75)){
             g.setColor(Color.GRAY);
         }
         g.fillRect(700,25,50,50);
-        g.setColor(Color.YELLOW);
-        //g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
+        g.drawImage(mapIcon,700,25,50,50,null);
+        if(mapOpen){
+            g.drawImage(map,200,30,400,400,null);
+        }
+        g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
     }
 
     public void update() {
-        if (right){
+        cright=true;
+        cleft=true;
+        cdown=true;
+        cup=true;
+        wall1.updateUp(this);
+        //System.out.println(cdown+" "+cup);
+        if (right && cright){
             moveRight();
         }
-        if (left){
+        if (left && cleft){
             moveLeft();
         }
-        if (down){
+        if (down && cdown){
             moveDown();
         }
-        if (up){
+        if (up && cup){
             moveUp();
         }
     }
