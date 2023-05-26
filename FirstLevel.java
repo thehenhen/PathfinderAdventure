@@ -36,7 +36,7 @@ public class FirstLevel extends JPanel implements KeyListener,MouseListener,Mous
     Image map;
     Image mapIcon;
 
-    Wall wall1;
+    Wall[] walls;
 
     public FirstLevel() {
         try {
@@ -48,7 +48,9 @@ public class FirstLevel extends JPanel implements KeyListener,MouseListener,Mous
         addKeyListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
-        wall1= new Wall(1,100,200,450,200);
+        walls=new Wall[10];
+        walls[0]= new Wall(1,100,200,450,200);
+        walls[1]= new Wall(2,200,200,200,300);
         Timer timer = new Timer(40, new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 FirstLevel.this.repaint();
@@ -122,7 +124,11 @@ public class FirstLevel extends JPanel implements KeyListener,MouseListener,Mous
         g.setColor(Color.PINK);
         g.fillRect(375,225,playerSize,playerSize);
 
-        wall1.display(g,this);
+        for(int i=0;i<walls.length;i++){
+            if(walls[i]!=null){
+                walls[i].display(g,this);
+            }
+        }
 
         g.setColor(Color.LIGHT_GRAY);
         if(mouseDetect(700,750,25,75)){
@@ -141,9 +147,16 @@ public class FirstLevel extends JPanel implements KeyListener,MouseListener,Mous
         cleft=true;
         cdown=true;
         cup=true;
-        wall1.updateUp(this);
-        wall1.updateDown(this);
-        //System.out.println(cdown+" "+cup);
+        for(int i=0;i<walls.length;i++){
+            if(walls[i]!=null){
+                if(walls[i].type==1){
+                    walls[i].updateUp(this);
+                    walls[i].updateDown(this);
+                }else{
+                    walls[i].updateLeft(this);
+                }
+            }
+        }
         if (right && cright){
             moveRight();
         }

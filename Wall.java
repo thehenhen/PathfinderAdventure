@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.awt.geom.Line2D;
-import javax.swing.*;
 
 public class Wall {
     public int type;
@@ -18,7 +16,6 @@ public class Wall {
     }
 
     public boolean updateUp(FirstLevel f) {
-        System.out.println(f.x+" "+f.y);
         boolean up = true;
         if ((f.x + 400 - f.playerSize/2 >= x1 && f.x + 400 - f.playerSize/2 <= x2) || (f.x + 400 + f.playerSize/2 >= x1 && f.x + 400 + f.playerSize/2 <= x2)) {
             if (f.y + 250 >= y1 - f.y && f.y + 250 <= y2 - f.y) {
@@ -37,6 +34,22 @@ public class Wall {
         }
         return down;
     }
+
+    public boolean updateLeft(FirstLevel f) {
+    boolean left = true;
+    if ((f.y + 250 - f.playerSize/2 >= y1 && f.y + 250 - f.playerSize/2 <= y2) || (f.y + 250 + f.playerSize/2 >= y1 && f.y + 250 + f.playerSize/2 <= y2)) {
+        if (f.x + 400 >= x1 - f.x && f.x + 400 <= x2 - f.x) {
+            f.cleft = false;
+        }
+    }
+    return left;
+}
+
+    
+    
+    
+    
+    
     
 
     public void display(Graphics g, FirstLevel f) {
