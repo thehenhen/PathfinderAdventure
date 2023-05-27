@@ -49,8 +49,10 @@ public class FirstLevel extends JPanel implements KeyListener,MouseListener,Mous
         addMouseListener(this);
         addMouseMotionListener(this);
         walls=new Wall[10];
-        walls[0]= new Wall(1,100,200,450,200);
+        walls[0]= new Wall(1,200,200,300,200);
         walls[1]= new Wall(2,200,200,200,300);
+        walls[2]= new Wall(2,300,200,300,300);
+        walls[3]= new Wall(1,200,300,300,300);
         Timer timer = new Timer(40, new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 FirstLevel.this.repaint();
@@ -154,6 +156,7 @@ public class FirstLevel extends JPanel implements KeyListener,MouseListener,Mous
                     walls[i].updateDown(this);
                 }else{
                     walls[i].updateLeft(this);
+                    walls[i].updateRight(this);
                 }
             }
         }

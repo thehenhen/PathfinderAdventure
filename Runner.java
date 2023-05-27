@@ -78,6 +78,30 @@ public class Runner extends JFrame implements KeyListener,MouseListener
     }
 
     public static void main(String[] args){
+        for(int x=-800;x<800;x++){
+            int y=100;
+            /* 
+            //if ((y + 250 >= 50 && y + 250 <= 150) || (y + 250 >= 50 && y + 250 <= 150)) {
+                //System.out.println("within");
+                if (x + 400 >= 100 - x && x + 400 <= 100 - x) {
+                    System.out.println(x);
+                }
+            //}*/
+            
+
+            int x1=200;
+            int x2=200;
+
+            
+
+            //if ((y + 250 >= 50 && y + 250 <= 150) || (y + 250 >= 50 && y + 250 <= 150)) {
+                //System.out.println("within");
+                if (x + 550== 200 - x) {
+                    System.out.println(x);
+                }
+            //}
+
+        }
         Runner r = new Runner();
         r.run();
     }
