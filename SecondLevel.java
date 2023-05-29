@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.imageio.ImageIO;
@@ -5,61 +6,40 @@ import java.io.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-public class FirstLevel extends Level{
-    int x;
-    int y;
-    int mouseX;
-    int mouseY;
-    int playerSize;
+public class SecondLevel extends JPanel implements KeyListener,MouseListener,MouseMotionListener{
+    int x = 0;
+    int y = 0;
+    int mouseX=0;
+    int mouseY=0;
+    int inc;
+    int playerSize=50;
 
 
-    boolean right;
-    boolean left;
-    boolean down;
-    boolean up;
+    boolean right=false;
+    boolean left=false;
+    boolean down=false;
+    boolean up=false;
     
-    boolean cright;
-    boolean cleft;
-    boolean cdown;
-    boolean cup;
+    boolean cright=true;
+    boolean cleft=true;
+    boolean cdown=true;
+    boolean cup=true;
 
-    boolean first;
-    boolean mapOpen;
+    boolean first=true;
+    boolean mapOpen = false;
     Image map;
     Image mapIcon;
 
-    ArrayList<Wall> walls;
-    int wallSize;
+    Wall[] walls;
+    int wallSize=0;
 
-    public FirstLevel() {
-        super();
-        x = 0;
-        y = 0;
-        mouseX=0;
-        mouseY=0;
-        playerSize=50;
-
-
-        right=false;
-        left=false;
-        down=false;
-        up=false;
-    
-        cright=true;
-        cleft=true;
-        cdown=true;
-        cup=true;
-
-        first=true;
-        mapOpen = false;
-
-        wallSize=0;
-        walls = new ArrayList<Wall>(wallSize);
+    public SecondLevel() {
         try {
             map = ImageIO.read(new File("map1.png"));
             mapIcon = ImageIO.read(new File("mapIcon.png"));
@@ -69,14 +49,15 @@ public class FirstLevel extends Level{
         addKeyListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
-        addWall(1,200,200,300,200);
-        addWall(2,200,200,200,300);
-        addWall(2,300,200,300,300);
-        addWall(1,200,300,300,300);
+        walls=new Wall[20];
+        walls[wallSize++]= new Wall(1,200,200,300,200);
+        walls[wallSize++]= new Wall(2,200,200,200,300);
+        walls[wallSize++]= new Wall(2,300,200,300,300);
+        walls[wallSize++]= new Wall(1,200,300,300,300);
         
         Timer timer = new Timer(40, new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                FirstLevel.this.repaint();
+                SecondLevel.this.repaint();
             }
         });
         timer.start();
@@ -147,9 +128,9 @@ public class FirstLevel extends Level{
         g.setColor(Color.PINK);
         g.fillRect(375,225,playerSize,playerSize);
 
-        for(int i=0;i<walls.size();i++){
-            if(walls.get(i)!=null){
-                walls.get(i).display(g,this);
+        for(int i=0;i<walls.length;i++){
+            if(walls[i]!=null){
+                walls[i].display(g,this);
             }
         }
 
@@ -170,16 +151,14 @@ public class FirstLevel extends Level{
         cleft=true;
         cdown=true;
         cup=true;
-        for(int i=0;i<walls.size();i++){
-            if(walls.get(i)!=null){
-                if(walls.get(i).type==1){
-                    cup = walls.get(i).updateUp(this);
-                    cdown = walls.get(i).updateDown(this);
-                    
+        for(int i=0;i<walls.length;i++){
+            if(walls[i]!=null){
+                if(walls[i].type==1){
+                    walls[i].updateUp(this);
+                    walls[i].updateDown(this);
                 }else{
-                    cleft = walls.get(i).updateLeft(this);
-                    cright = walls.get(i).updateRight(this);
-                    
+                    walls[i].updateLeft(this);
+                    walls[i].updateRight(this);
                 }
             }
         }
@@ -213,21 +192,9 @@ public class FirstLevel extends Level{
         y = y - 5;
     }
 
-    public int getX(){
-        return x;
-    }
-
-    public int getY(){
-        return y;
-    }
-
     public static void main(String[] args) {
         FirstLevel frame = new FirstLevel();
         frame.setSize(800, 500);
         frame.setVisible(true);
-    }
-
-    public void addWall(int type, int x1, int y1, int x2, int y2){
-        walls.add(new Wall(type,x1,y1,x2,y2));
     }
 }

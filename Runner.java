@@ -22,7 +22,7 @@ public class Runner extends JFrame implements KeyListener,MouseListener
     
     public void keyReleased(KeyEvent e) {
         if(first.first){
-            first.keyReleased(e);
+            first.keyReleased(e); 
         }
     }
 
@@ -65,6 +65,7 @@ public class Runner extends JFrame implements KeyListener,MouseListener
                     menu.setVisible(true);
                 }
                 else if(first.first){
+                    System.out.println(first.wallSize);
                     first.repaint();
                     menu.add(first);
                     menu.setVisible(true);
