@@ -29,10 +29,8 @@ public class Level extends JPanel implements KeyListener,MouseListener,MouseMoti
     Image map;
     Image mapIcon;
 
-    Wall[] walls;
-    int wallSize;
 
-    public Level() {wallSize=0;}
+    public Level() {}
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){

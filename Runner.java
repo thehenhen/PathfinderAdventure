@@ -11,7 +11,7 @@ public class Runner extends JFrame implements KeyListener,MouseListener
     FirstLevel first = new FirstLevel();
 
     public Runner(){
-        menu.addKeyListener(this);
+        menu.addKeyListener(this); 
     }
 
     public void keyPressed(KeyEvent e) {
@@ -34,6 +34,8 @@ public class Runner extends JFrame implements KeyListener,MouseListener
         }
     }
     public void mouseEntered(MouseEvent e) {}
+
+
     public void mouseExited(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
@@ -65,7 +67,6 @@ public class Runner extends JFrame implements KeyListener,MouseListener
                     menu.setVisible(true);
                 }
                 else if(first.first){
-                    System.out.println(first.wallSize);
                     first.repaint();
                     menu.add(first);
                     menu.setVisible(true);

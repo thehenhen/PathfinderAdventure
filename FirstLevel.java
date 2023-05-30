@@ -59,7 +59,7 @@ public class FirstLevel extends Level{
         mapOpen = false;
 
         wallSize=0;
-        walls = new ArrayList<Wall>(wallSize);
+        walls = new ArrayList<Wall>();
         try {
             map = ImageIO.read(new File("map1.png"));
             mapIcon = ImageIO.read(new File("mapIcon.png"));
@@ -69,10 +69,19 @@ public class FirstLevel extends Level{
         addKeyListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
-        addWall(1,200,200,300,200);
-        addWall(2,200,200,200,300);
-        addWall(2,300,200,300,300);
-        addWall(1,200,300,300,300);
+        
+        addWall(1,300,300,400,300);//top
+        addWall(1,300,400,400,400);//bottom
+        
+        addWall(2,300,300,300,400);//left
+        addWall(2,400,300,400,400);//right
+        
+        
+        
+        
+        
+        
+        
         
         Timer timer = new Timer(40, new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -160,7 +169,8 @@ public class FirstLevel extends Level{
         g.fillRect(700,25,50,50);
         g.drawImage(mapIcon,700,25,50,50,null);
         if(mapOpen){
-            g.drawImage(map,200,30,400,400,null);
+            //g.drawImage(map,200,30,400,400,null);
+            g.fillRect(200,30,400,400);
         }
         g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
     }
@@ -175,11 +185,9 @@ public class FirstLevel extends Level{
                 if(walls.get(i).type==1){
                     cup = walls.get(i).updateUp(this);
                     cdown = walls.get(i).updateDown(this);
-                    
                 }else{
                     cleft = walls.get(i).updateLeft(this);
                     cright = walls.get(i).updateRight(this);
-                    
                 }
             }
         }
