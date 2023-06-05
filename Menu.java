@@ -7,9 +7,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Menu extends JFrame implements MouseListener,MouseMotionListener{
     Image image;
@@ -31,12 +28,6 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
         smallestSerifFont = new Font("Serif", Font.PLAIN, 40);
         addMouseListener(this);
         addMouseMotionListener(this);
-        Timer timer = new Timer(50, new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                Menu.this.repaint();
-            }
-        });
-        timer.start();
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -57,21 +48,13 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
     }
     public void mouseDragged(MouseEvent e) {}
 
-    public static void main (String[] args){
-        Menu frame = new Menu();
-        frame.setSize(800,500);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
-
     public void paint(Graphics g) {
         if(menu){
             update();
 
             // BACKGROUND
             g.setColor(Color.WHITE);
-            g.fillRect(0, 0, getWidth(), getHeight());
+            g.fillRect(0, 0, 800, 500);
 
             // DRAW STUFF HERE
             g.drawImage(image,0,0,800,500,null);

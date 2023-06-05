@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.imageio.ImageIO;
@@ -6,40 +5,58 @@ import java.io.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class SecondLevel extends JPanel implements KeyListener,MouseListener,MouseMotionListener{
-    int x = 0;
-    int y = 0;
-    int mouseX=0;
-    int mouseY=0;
-    int inc;
-    int playerSize=50;
+public class SecondLevel extends Level{
+    int x;
+    int y;
+    int mouseX;
+    int mouseY;
+    int playerSize;
 
 
-    boolean right=false;
-    boolean left=false;
-    boolean down=false;
-    boolean up=false;
+    boolean right;
+    boolean left;
+    boolean down;
+    boolean up;
     
-    boolean cright=true;
-    boolean cleft=true;
-    boolean cdown=true;
-    boolean cup=true;
+    boolean cright;
+    boolean cleft;
+    boolean cdown;
+    boolean cup;
 
-    boolean first=true;
-    boolean mapOpen = false;
+    boolean second;
+    boolean mapOpen;
     Image map;
     Image mapIcon;
 
-    Wall[] walls;
-    int wallSize=0;
+    ArrayList<Wall> walls;
+    int wallSize;
 
     public SecondLevel() {
+        super();
+        x = 0;
+        y = 0;
+        mouseX=0;
+        mouseY=0;
+        playerSize=50;
+
+
+        right=false;
+        left=false;
+        down=false;
+        up=false;
+    
+        cright=true;
+        cleft=true;
+        cdown=true;
+        cup=true;
+
+        second=true;
+        mapOpen = false;
+
+        wallSize=0;
+        walls = new ArrayList<Wall>();
         try {
             map = ImageIO.read(new File("map1.png"));
             mapIcon = ImageIO.read(new File("mapIcon.png"));
@@ -49,18 +66,12 @@ public class SecondLevel extends JPanel implements KeyListener,MouseListener,Mou
         addKeyListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
-        walls=new Wall[20];
-        walls[wallSize++]= new Wall(1,200,200,300,200);
-        walls[wallSize++]= new Wall(2,200,200,200,300);
-        walls[wallSize++]= new Wall(2,300,200,300,300);
-        walls[wallSize++]= new Wall(1,200,300,300,300);
         
-        Timer timer = new Timer(40, new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                SecondLevel.this.repaint();
-            }
-        });
-        timer.start();
+        addWall(1,300,300,400,300);//top
+        addWall(1,300,400,400,400);//bottom
+        
+        addWall(2,300,300,300,400);//left
+        addWall(2,400,300,400,400);//right
     }
 
     public void keyPressed(KeyEvent e) {
@@ -118,7 +129,7 @@ public class SecondLevel extends JPanel implements KeyListener,MouseListener,Mou
 
         // BACKGROUND
         g.setColor(Color.WHITE);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        g.fillRect(0, 0, 800, 500);
 
         //DRAW STUFF HERE
         g.setColor(Color.BLACK);
@@ -128,9 +139,9 @@ public class SecondLevel extends JPanel implements KeyListener,MouseListener,Mou
         g.setColor(Color.PINK);
         g.fillRect(375,225,playerSize,playerSize);
 
-        for(int i=0;i<walls.length;i++){
-            if(walls[i]!=null){
-                walls[i].display(g,this);
+        for(int i=0;i<walls.size();i++){
+            if(walls.get(i)!=null){
+                walls.get(i).display(g,this);
             }
         }
 
@@ -141,7 +152,8 @@ public class SecondLevel extends JPanel implements KeyListener,MouseListener,Mou
         g.fillRect(700,25,50,50);
         g.drawImage(mapIcon,700,25,50,50,null);
         if(mapOpen){
-            g.drawImage(map,200,30,400,400,null);
+            //g.drawImage(map,200,30,400,400,null);
+            g.fillRect(200,30,400,400);
         }
         g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
     }
@@ -151,14 +163,14 @@ public class SecondLevel extends JPanel implements KeyListener,MouseListener,Mou
         cleft=true;
         cdown=true;
         cup=true;
-        for(int i=0;i<walls.length;i++){
-            if(walls[i]!=null){
-                if(walls[i].type==1){
-                    walls[i].updateUp(this);
-                    walls[i].updateDown(this);
+        for(int i=0;i<walls.size();i++){
+            if(walls.get(i)!=null){
+                if(walls.get(i).type==1){
+                    cup = walls.get(i).updateUp(this);
+                    cdown = walls.get(i).updateDown(this);
                 }else{
-                    walls[i].updateLeft(this);
-                    walls[i].updateRight(this);
+                    cleft = walls.get(i).updateLeft(this);
+                    cright = walls.get(i).updateRight(this);
                 }
             }
         }
@@ -192,9 +204,16 @@ public class SecondLevel extends JPanel implements KeyListener,MouseListener,Mou
         y = y - 5;
     }
 
-    public static void main(String[] args) {
-        FirstLevel frame = new FirstLevel();
-        frame.setSize(800, 500);
-        frame.setVisible(true);
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+
+    public void addWall(int type, int x1, int y1, int x2, int y2){
+        walls.add(new Wall(type,x1,y1,x2,y2));
     }
 }

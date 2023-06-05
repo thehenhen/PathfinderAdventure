@@ -5,14 +5,9 @@ import java.io.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class FirstLevel extends Level{
-    int x;
-    int y;
     int mouseX;
     int mouseY;
     int playerSize;
@@ -75,20 +70,6 @@ public class FirstLevel extends Level{
         
         addWall(2,300,300,300,400);//left
         addWall(2,400,300,400,400);//right
-        
-        
-        
-        
-        
-        
-        
-        
-        Timer timer = new Timer(40, new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                FirstLevel.this.repaint();
-            }
-        });
-        timer.start();
     }
 
     public void keyPressed(KeyEvent e) {
@@ -146,7 +127,7 @@ public class FirstLevel extends Level{
 
         // BACKGROUND
         g.setColor(Color.WHITE);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        g.fillRect(0, 0, 800, 500);
 
         //DRAW STUFF HERE
         g.setColor(Color.BLACK);
@@ -161,7 +142,6 @@ public class FirstLevel extends Level{
                 walls.get(i).display(g,this);
             }
         }
-
         g.setColor(Color.LIGHT_GRAY);
         if(mouseDetect(700,750,25,75)){
             g.setColor(Color.GRAY);
@@ -170,9 +150,11 @@ public class FirstLevel extends Level{
         g.drawImage(mapIcon,700,25,50,50,null);
         if(mapOpen){
             //g.drawImage(map,200,30,400,400,null);
+            g.setColor(Color.GRAY);
             g.fillRect(200,30,400,400);
         }
         g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
+        System.out.println(x+","+y);
     }
 
     public void update() {
@@ -229,11 +211,6 @@ public class FirstLevel extends Level{
         return y;
     }
 
-    public static void main(String[] args) {
-        FirstLevel frame = new FirstLevel();
-        frame.setSize(800, 500);
-        frame.setVisible(true);
-    }
 
     public void addWall(int type, int x1, int y1, int x2, int y2){
         walls.add(new Wall(type,x1,y1,x2,y2));

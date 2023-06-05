@@ -53,12 +53,13 @@ public class Runner extends JFrame implements KeyListener,MouseListener
         while( !shouldStop )
         {
             try {
-                Thread.sleep( 500 );
+                Thread.sleep( 40 );
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             if( !pause )
             {
+                
                 if(menu.menu){
                     menu.repaint();
                     menu.setSize(800,500);

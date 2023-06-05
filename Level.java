@@ -86,7 +86,7 @@ public class Level extends JPanel implements KeyListener,MouseListener,MouseMoti
         update();
         // BACKGROUND
         g.setColor(Color.WHITE);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        g.fillRect(0, 0, 800, 500);
 
         //DRAW STUFF HERE
     }
