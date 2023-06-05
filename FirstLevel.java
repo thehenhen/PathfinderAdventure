@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.lang.Math.*;
 
 public class FirstLevel extends Level{
     int mouseX;
@@ -27,14 +28,17 @@ public class FirstLevel extends Level{
     boolean mapOpen;
     Image map;
     Image mapIcon;
+    Image idk;
+
+    Color c = new Color(255,255,255);
 
     ArrayList<Wall> walls;
     int wallSize;
 
     public FirstLevel() {
         super();
-        x = 0;
-        y = 0;
+        X = 0;
+        Y = 0;
         mouseX=0;
         mouseY=0;
         playerSize=50;
@@ -58,6 +62,7 @@ public class FirstLevel extends Level{
         try {
             map = ImageIO.read(new File("map1.png"));
             mapIcon = ImageIO.read(new File("mapIcon.png"));
+            idk = ImageIO.read(new File("idk.jpg"));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -125,36 +130,53 @@ public class FirstLevel extends Level{
     public void paint(Graphics g) {
         update();
 
-        // BACKGROUND
-        g.setColor(Color.WHITE);
+
+        // // BACKGROUND
+        // //g.setColor(Color.YELLOW);
+        // System.out.println("before back");
+        // c = new Color(c.getRed()-1,c.getGreen()-1,c.getBlue()-1);
+        // g.setColor(c);
+        // g.fillRect(0, 0, 800, 500);
+        // //g.drawImage(idk,0,0,800,500,null);
+        // System.out.println("after back");
+        // //c = new Color(c.getRed()+1,c.getGreen()+1,c.getBlue()+1);
+        // g.setColor(c);
+        // g.fillOval(c.getRed()*2,100,100,100);
+
+
+        // //DRAW STUFF HERE
+        
+        
+        
+        // g.setColor(Color.BLACK);
+        
+        // for(int i=0;i<800;i+=50){
+        //     g.fillRect(i-X,-Y,20,500);
+        // }
+        // g.setColor(Color.PINK);
+        // g.fillRect(375,225,playerSize,playerSize);
+
+        // for(int i=0;i<walls.size();i++){
+        //     if(walls.get(i)!=null){
+        //         walls.get(i).display(g,this);
+        //     }
+        // }
+        // g.setColor(Color.LIGHT_GRAY);
+        // if(mouseDetect(700,750,25,75)){
+        //     g.setColor(Color.GRAY);
+        // }
+        // g.fillRect(700,25,50,50);
+        // g.drawImage(mapIcon,700,25,50,50,null);
+        // if(mapOpen){
+        //     g.drawImage(map,200,30,400,400,null);
+        //     //g.setColor(Color.GRAY);
+        //     //g.fillRect(200,30,100,100);
+        // }
+        // g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
+        // //System.out.println(X+","+Y);
+        c = new Color(c.getRed()-1,c.getGreen()-1,c.getBlue()-1);
+        g.setColor(c);
         g.fillRect(0, 0, 800, 500);
-
-        //DRAW STUFF HERE
-        g.setColor(Color.BLACK);
-        for(int i=0;i<800;i+=50){
-            //g.fillRect(i-x,-y,20,500);
-        }
-        g.setColor(Color.PINK);
-        g.fillRect(375,225,playerSize,playerSize);
-
-        for(int i=0;i<walls.size();i++){
-            if(walls.get(i)!=null){
-                walls.get(i).display(g,this);
-            }
-        }
-        g.setColor(Color.LIGHT_GRAY);
-        if(mouseDetect(700,750,25,75)){
-            g.setColor(Color.GRAY);
-        }
-        g.fillRect(700,25,50,50);
-        g.drawImage(mapIcon,700,25,50,50,null);
-        if(mapOpen){
-            //g.drawImage(map,200,30,400,400,null);
-            g.setColor(Color.GRAY);
-            g.fillRect(200,30,400,400);
-        }
-        g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
-        System.out.println(x+","+y);
     }
 
     public void update() {
@@ -162,17 +184,17 @@ public class FirstLevel extends Level{
         cleft=true;
         cdown=true;
         cup=true;
-        for(int i=0;i<walls.size();i++){
-            if(walls.get(i)!=null){
-                if(walls.get(i).type==1){
-                    cup = walls.get(i).updateUp(this);
-                    cdown = walls.get(i).updateDown(this);
-                }else{
-                    cleft = walls.get(i).updateLeft(this);
-                    cright = walls.get(i).updateRight(this);
-                }
-            }
-        }
+        // for(int i=0;i<walls.size();i++){
+        //     if(walls.get(i)!=null){
+        //         if(walls.get(i).type==1){
+        //             cup = walls.get(i).updateUp(this);
+        //             cdown = walls.get(i).updateDown(this);
+        //         }else{
+        //             cleft = walls.get(i).updateLeft(this);
+        //             cright = walls.get(i).updateRight(this);
+        //         }
+        //     }
+        // }
         if (right && cright){
             moveRight();
         }
@@ -188,27 +210,27 @@ public class FirstLevel extends Level{
     }
 
     public void moveRight() {
-        x = x + 5;
+        X = X + 5;
     }
     
     public void moveLeft() {
-        x = x - 5;
+        X = X - 5;
     }
     
     public void moveDown() {
-        y = y + 5;
+        Y = Y + 5;
     }
     
     public void moveUp() {
-        y = y - 5;
+        Y = Y - 5;
     }
 
     public int getX(){
-        return x;
+        return X;
     }
 
     public int getY(){
-        return y;
+        return Y;
     }
 
 

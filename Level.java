@@ -8,8 +8,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class Level extends JPanel implements KeyListener,MouseListener,MouseMotionListener{
-    int x;
-    int y;
+    int X;
+    int Y;
     int mouseX;
     int mouseY;
     int playerSize;
@@ -83,7 +83,7 @@ public class Level extends JPanel implements KeyListener,MouseListener,MouseMoti
     
 
     public void paint(Graphics g) {
-        update();
+        //update();
         // BACKGROUND
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, 800, 500);
@@ -91,13 +91,13 @@ public class Level extends JPanel implements KeyListener,MouseListener,MouseMoti
         //DRAW STUFF HERE
     }
 
-    public void update() {}
+    // public void update() {}
 
-    public void moveRight() {x = x + 5;}
+    // public void moveRight() {X = X + 5;}
     
-    public void moveLeft() {x = x - 5;}
+    // public void moveLeft() {X = X - 5;}
     
-    public void moveDown() {y = y + 5;}
+    // public void moveDown() {Y = Y + 5;}
     
-    public void moveUp() {y = y - 5;}
+    // public void moveUp() {Y = Y - 5;}
 }
