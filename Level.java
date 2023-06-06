@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,66 +7,22 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class Level extends JPanel implements KeyListener,MouseListener,MouseMotionListener{
-    int X;
-    int Y;
+    int playerX;
+    int playerY;
     int mouseX;
     int mouseY;
-    int playerSize;
-
-    boolean right;
-    boolean left;
-    boolean down;
-    boolean up;
     
     boolean cright;
     boolean cleft;
     boolean cdown;
     boolean cup;
 
-    boolean first;
-    boolean mapOpen;
-    Image map;
-    Image mapIcon;
-
-
     public Level() {}
 
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
-            right=true;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-            left=true;
-        }  
-        if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
-            down=true;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-            up=true;
-        }
-    }
-    
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
-            right=false;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-            left=false;
-        }  
-        if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
-            down=false;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-            up=false;
-        }
-    }
+    public void keyPressed(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {}
     public void keyTyped(KeyEvent e) {}
-
-    public void mouseClicked(MouseEvent e) {
-        if(mouseDetect(700,750,25,75)){
-            mapOpen=!mapOpen;
-        }
-    }
+    public void mouseClicked(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {}
@@ -81,23 +36,11 @@ public class Level extends JPanel implements KeyListener,MouseListener,MouseMoti
         return(mouseX>=x1 && mouseX<=x2 && mouseY>=y1 && mouseY<=y2);
     }
     
-
     public void paint(Graphics g) {
-        //update();
         // BACKGROUND
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, 800, 500);
 
         //DRAW STUFF HERE
     }
-
-    // public void update() {}
-
-    // public void moveRight() {X = X + 5;}
-    
-    // public void moveLeft() {X = X - 5;}
-    
-    // public void moveDown() {Y = Y + 5;}
-    
-    // public void moveUp() {Y = Y - 5;}
 }

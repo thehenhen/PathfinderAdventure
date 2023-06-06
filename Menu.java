@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 
 public class Menu extends JFrame implements MouseListener,MouseMotionListener{
     Image image;
-    int x=0;
-    int y=0;
+    int mouseX=0;
+    int mouseY=0;
     boolean menu=true;
     Font largeSerifFont;
     Font smallSerifFont;
@@ -31,9 +31,9 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
     }
 
     public void mouseClicked(MouseEvent e) {
-        x=e.getX();
-        y=e.getY();
-        if(x>345 && x<455 && y>250 && y<290){
+        mouseX=e.getX();
+        mouseY=e.getY();
+        if(mouseX>345 && mouseX<455 && mouseY>250 && mouseY<290){
             System.out.println("start");
             menu=false;
         }
@@ -43,8 +43,8 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
     public void mousePressed(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
     public void mouseMoved(MouseEvent e) {
-        x=e.getX();
-        y=e.getY();
+        mouseX=e.getX();
+        mouseY=e.getY();
     }
     public void mouseDragged(MouseEvent e) {}
 
@@ -66,6 +66,7 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
             g.setFont(smallestSerifFont);
             g.setColor(Color.yellow);
             g.drawString("PLAY",350,285);
+            g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
         }
     }
 

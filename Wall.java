@@ -67,6 +67,6 @@ public class Wall {
 
     public void display(Graphics g, Level l) {
         g.setColor(Color.BLACK);
-        g.drawLine(x1 - l.X, y1 - l.Y, x2 - l.X, y2 - l.Y);
+        g.drawLine(x1 - l.playerX, y1 - l.playerY, x2 - l.playerX, y2 - l.playerY);
     }
 }

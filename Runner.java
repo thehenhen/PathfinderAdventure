@@ -50,6 +50,10 @@ public class Runner extends JFrame implements KeyListener,MouseListener
 
     public void run()
     {
+        menu.setSize(800,500);
+        menu.setResizable(false);
+        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menu.setVisible(true);
         while( !shouldStop )
         {
             try {
@@ -59,15 +63,11 @@ public class Runner extends JFrame implements KeyListener,MouseListener
             }
             if( !pause )
             {
-                
                 if(menu.menu){
                     menu.repaint();
-                    menu.setSize(800,500);
-                    menu.setResizable(false);
-                    menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    menu.setVisible(true);
                 }
-                else if(first.first){
+                else 
+                if(first.first){
                     first.repaint();
                     menu.add(first);
                     menu.setVisible(true);
