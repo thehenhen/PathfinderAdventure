@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -11,6 +10,7 @@ public class Level extends JPanel implements KeyListener,MouseListener,MouseMoti
     int playerY;
     int mouseX;
     int mouseY;
+    int playerSize;
     
     boolean cright;
     boolean cleft;
@@ -27,20 +27,15 @@ public class Level extends JPanel implements KeyListener,MouseListener,MouseMoti
     public void mouseExited(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
-    public void mouseMoved(MouseEvent e) {
-        mouseX=e.getX();
-        mouseY=e.getY();
-    }
+    public void mouseMoved(MouseEvent e) {}
     public void mouseDragged(MouseEvent e) {}
-    public boolean mouseDetect(int x1,int x2,int y1,int y2){
-        return(mouseX>=x1 && mouseX<=x2 && mouseY>=y1 && mouseY<=y2);
+    public int getPlayerX(){
+        return playerX;
+    }
+
+    public int getPlayerY(){
+        return playerY;
     }
     
-    public void paint(Graphics g) {
-        // BACKGROUND
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, 800, 500);
-
-        //DRAW STUFF HERE
-    }
+    public void paint(Graphics g) {}
 }

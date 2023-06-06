@@ -9,23 +9,15 @@ import java.util.ArrayList;
 
 public class FirstLevel extends Level{
     int playerSize;
-
-
     boolean right;
     boolean left;
     boolean down;
     boolean up;
-
     boolean first;
     boolean mapOpen;
     Image map;
     Image mapIcon;
-    Image idk;
-
-    Color c = new Color(200,200,200);
-
     ArrayList<Wall> walls;
-    int wallSize;
 
     public FirstLevel() {
         super();
@@ -48,24 +40,31 @@ public class FirstLevel extends Level{
         first=true;
         mapOpen = false;
 
-        wallSize=0;
         walls = new ArrayList<Wall>();
         try {
             map = ImageIO.read(new File("map1.png"));
             mapIcon = ImageIO.read(new File("mapIcon.png"));
-            idk = ImageIO.read(new File("idk.jpg"));
         }catch (Exception e){
             e.printStackTrace();
         }
         addKeyListener(this);
-        //addMouseListener(this);
-        //addMouseMotionListener(this);
+        addMouseListener(this);
+        addMouseMotionListener(this);
+
+        //library
+        addWall(2,350,-500,350,230);
+        addWall(1,170,-500,350,-500);
+        addWall(1,-250,230,350,230);
+        addWall(2,-250,-100,-250,230);
+
+        //caf
+        addWall(2,450,-200,450,170);
+
+        addWall(2,750,-200,750,170);
+
+        addWall(1,450,170,750,170);
         
-        // addWall(1,300,300,400,300);//top
-        // addWall(1,300,400,400,400);//bottom
-        
-        // addWall(2,300,300,300,400);//left
-        // addWall(2,400,300,400,400);//right
+        addWall(1,450,-200,750,-200);
     }
 
     public void keyPressed(KeyEvent e) {
@@ -120,29 +119,13 @@ public class FirstLevel extends Level{
 
     public void paint(Graphics g) {
         update();
-        /* 
+        
         // BACKGROUND
-        //g.setColor(Color.YELLOW);
-        System.out.println("before back");
-        c = new Color(c.getRed()-1,c.getGreen()-1,c.getBlue()-1);
-        g.setColor(c);
+        g.setColor(Color.WHITE);
         g.fillRect(0, 0, 800, 500);
-        //g.drawImage(idk,0,0,800,500,null);
-        System.out.println("after back");
-        //c = new Color(c.getRed()+1,c.getGreen()+1,c.getBlue()+1);
-        g.setColor(c);
-        g.fillOval(c.getRed()*2,100,100,100);
-
 
         //DRAW STUFF HERE
-        
-        
-        
         g.setColor(Color.BLACK);
-        
-        for(int i=0;i<800;i+=50){
-            g.fillRect(i-X,-Y,20,500);
-        }
         g.setColor(Color.PINK);
         g.fillRect(375,225,playerSize,playerSize);
 
@@ -159,14 +142,8 @@ public class FirstLevel extends Level{
         g.drawImage(mapIcon,700,25,50,50,null);
         if(mapOpen){
             g.drawImage(map,200,30,400,400,null);
-            //g.setColor(Color.GRAY);
-            //g.fillRect(200,30,100,100);
         }
         g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
-        //System.out.println(X+","+Y);*/
-        c = new Color(c.getRed()-1,c.getGreen()-1,c.getBlue()-1);
-        g.setColor(c);
-        g.fillRect(0,0,800,500);
     }
 
     public void update() {
@@ -174,18 +151,27 @@ public class FirstLevel extends Level{
         cleft=true;
         cdown=true;
         cup=true;
-        /* 
         for(int i=0;i<walls.size();i++){
             if(walls.get(i)!=null){
                 if(walls.get(i).type==1){
-                    cup = walls.get(i).updateUp(this);
-                    cdown = walls.get(i).updateDown(this);
+                    if(!walls.get(i).updateUp(this)){
+                        cup=false;
+                    }
+                    if(!walls.get(i).updateDown(this)){
+                        cdown=false;
+                    }
+                    
                 }else{
-                    cleft = walls.get(i).updateLeft(this);
-                    cright = walls.get(i).updateRight(this);
+                    if(!walls.get(i).updateLeft(this)){
+                        cleft=false;
+                    }
+                    if(!walls.get(i).updateRight(this)){
+                        cright=false;
+                    }
+                    
                 }
             }
-        }*/
+        }
         if (right && cright){
             right();
         }
@@ -216,14 +202,13 @@ public class FirstLevel extends Level{
         playerY -= 5;
     }
 
-    public int getX(){
+    public int getPlayerX(){
         return playerX;
     }
 
-    public int getY(){
+    public int getPlayerY(){
         return playerY;
     }
-
 
     public void addWall(int type, int x1, int y1, int x2, int y2){
         walls.add(new Wall(type,x1,y1,x2,y2));

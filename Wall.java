@@ -17,9 +17,9 @@ public class Wall {
 
     public boolean updateUp(Level l) {
         boolean up = true;
-        if ((l.getX() + 400 - 25 > x1 && l.getX() + 400 - 25 < x2) || (l.getX() + 400 + 25 > x1 && l.getX() + 400 + 25 < x2)) {
-            if (l.getY() + 250 - 25 == y1) {
-                l.cup = false;
+        if ((l.getPlayerX() + 400 - 25 > x1 && l.getPlayerX() + 400 - 25 < x2) || (l.getPlayerX() + 400 + 25 > x1 && l.getPlayerX() + 400 + 25 < x2)) {
+            if (l.getPlayerY() + 250 - 25 == y1) {
+                //l.cup = false;
                 up=false;
             }
         }
@@ -29,9 +29,9 @@ public class Wall {
 
     public boolean updateDown(Level l) {
         boolean down = true;
-        if ((l.getX() + 400 - 25 > x1 && l.getX() + 400 - 25 < x2) || (l.getX() + 400 + 25 > x1 && l.getX() + 400 + 25 < x2)) {
-            if (l.getY() + 250 + 25 == y1) {
-                l.cdown = false;
+        if ((l.getPlayerX() + 400 - 25 > x1 && l.getPlayerX() + 400 - 25 < x2) || (l.getPlayerX() + 400 + 25 > x1 && l.getPlayerX() + 400 + 25 < x2)) {
+            if (l.getPlayerY() + 250 + 25 == y1) {
+                //l.cdown = false;
                 down=false;
             }
         }
@@ -42,9 +42,9 @@ public class Wall {
 
     public boolean updateLeft(Level l) {
         boolean left = true;
-        if ((l.getY() + 250 - 25 > y1 && l.getY() + 250 - 25 < y2) || (l.getY() + 250 + 25 > y1 && l.getY() + 250 + 25 < y2)) {
-            if (l.getX() + 400 - 25 == x1) {
-                l.cleft=false;
+        if ((l.getPlayerY() + 250 - 25 > y1 && l.getPlayerY() + 250 - 25 < y2) || (l.getPlayerY() + 250 + 25 > y1 && l.getPlayerY() + 250 + 25 < y2)) {
+            if (l.getPlayerX() + 400 - 25 == x1) {
+                //l.cleft=false;
                 left = false;
             }
         }
@@ -55,9 +55,9 @@ public class Wall {
 
     public boolean updateRight(Level l) {
         boolean right = true;
-        if ((l.getY() + 250 - 25 > y1 && l.getY() + 250 - 25 < y2) || (l.getY() + 250 + 25 > y1 && l.getY() + 250 + 25 < y2)) {
-            if (l.getX() + 400 + 25 == x1) {
-                l.cright=false;
+        if ((l.getPlayerY() + 250 - 25 > y1 && l.getPlayerY() + 250 - 25 < y2) || (l.getPlayerY() + 250 + 25 > y1 && l.getPlayerY() + 250 + 25 < y2)) {
+            if (l.getPlayerX() + 400 + 25 == x1) {
+                //l.cright=false;
                 right = false;
             }
         }

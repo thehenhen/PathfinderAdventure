@@ -8,39 +8,24 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class SecondLevel extends Level{
-    int x;
-    int y;
-    int mouseX;
-    int mouseY;
     int playerSize;
-
-
     boolean right;
     boolean left;
     boolean down;
     boolean up;
-    
-    boolean cright;
-    boolean cleft;
-    boolean cdown;
-    boolean cup;
-
     boolean second;
     boolean mapOpen;
     Image map;
     Image mapIcon;
-
     ArrayList<Wall> walls;
-    int wallSize;
 
     public SecondLevel() {
         super();
-        x = 0;
-        y = 0;
+        playerX = 0;
+        playerY = 0;
         mouseX=0;
         mouseY=0;
         playerSize=50;
-
 
         right=false;
         left=false;
@@ -55,7 +40,6 @@ public class SecondLevel extends Level{
         second=true;
         mapOpen = false;
 
-        wallSize=0;
         walls = new ArrayList<Wall>();
         try {
             map = ImageIO.read(new File("map1.png"));
@@ -69,9 +53,10 @@ public class SecondLevel extends Level{
         
         addWall(1,300,300,400,300);//top
         addWall(1,300,400,400,400);//bottom
-        
         addWall(2,300,300,300,400);//left
         addWall(2,400,300,400,400);//right
+
+        addWall(1,300,100,400,100);
     }
 
     public void keyPressed(KeyEvent e) {
@@ -126,16 +111,13 @@ public class SecondLevel extends Level{
 
     public void paint(Graphics g) {
         update();
-
+        
         // BACKGROUND
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, 800, 500);
 
         //DRAW STUFF HERE
         g.setColor(Color.BLACK);
-        for(int i=0;i<800;i+=50){
-            //g.fillRect(i-x,-y,20,500);
-        }
         g.setColor(Color.PINK);
         g.fillRect(375,225,playerSize,playerSize);
 
@@ -144,7 +126,6 @@ public class SecondLevel extends Level{
                 walls.get(i).display(g,this);
             }
         }
-
         g.setColor(Color.LIGHT_GRAY);
         if(mouseDetect(700,750,25,75)){
             g.setColor(Color.GRAY);
@@ -152,8 +133,7 @@ public class SecondLevel extends Level{
         g.fillRect(700,25,50,50);
         g.drawImage(mapIcon,700,25,50,50,null);
         if(mapOpen){
-            //g.drawImage(map,200,30,400,400,null);
-            g.fillRect(200,30,400,400);
+            g.drawImage(map,200,30,400,400,null);
         }
         g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
     }
@@ -166,52 +146,61 @@ public class SecondLevel extends Level{
         for(int i=0;i<walls.size();i++){
             if(walls.get(i)!=null){
                 if(walls.get(i).type==1){
-                    cup = walls.get(i).updateUp(this);
-                    cdown = walls.get(i).updateDown(this);
+                    if(!walls.get(i).updateUp(this)){
+                        cup=false;
+                    }
+                    if(!walls.get(i).updateDown(this)){
+                        cdown=false;
+                    }
+                    
                 }else{
-                    cleft = walls.get(i).updateLeft(this);
-                    cright = walls.get(i).updateRight(this);
+                    if(!walls.get(i).updateLeft(this)){
+                        cleft=false;
+                    }
+                    if(!walls.get(i).updateRight(this)){
+                        cright=false;
+                    }
+                    
                 }
             }
         }
         if (right && cright){
-            moveRight();
+            right();
         }
         if (left && cleft){
-            moveLeft();
+            left();
         }
         if (down && cdown){
-            moveDown();
+            down();
         }
         if (up && cup){
-            moveUp();
+            up();
         }
     }
 
-    public void moveRight() {
-        x = x + 5;
+    public void right() {
+        playerX += 5;
     }
     
-    public void moveLeft() {
-        x = x - 5;
+    public void left() {
+        playerX -= 5;
     }
     
-    public void moveDown() {
-        y = y + 5;
+    public void down() {
+        playerY += 5;
     }
     
-    public void moveUp() {
-        y = y - 5;
+    public void up() {
+        playerY -= 5;
     }
 
-    public int getX(){
-        return x;
+    public int getPlayerX(){
+        return playerX;
     }
 
-    public int getY(){
-        return y;
+    public int getPlayerY(){
+        return playerY;
     }
-
 
     public void addWall(int type, int x1, int y1, int x2, int y2){
         walls.add(new Wall(type,x1,y1,x2,y2));
