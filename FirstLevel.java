@@ -17,7 +17,6 @@ public class FirstLevel extends Level{
     boolean mapOpen;
     Image map;
     Image mapIcon;
-    Image pDR;
     Image[] playerIcons;
     ArrayList<Wall> walls;
     ArrayList<AntiWall> antiwalls;
@@ -104,7 +103,7 @@ public class FirstLevel extends Level{
         addRect(900,-900,200,350);
         addDoor(2,1100,-650,1100,-550);
 
-        
+
     }
 
     public void keyPressed(KeyEvent e) {
@@ -119,6 +118,9 @@ public class FirstLevel extends Level{
         }
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
             up=true;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            first=false;
         }
     }
     
