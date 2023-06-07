@@ -17,7 +17,15 @@ public class FirstLevel extends Level{
     boolean mapOpen;
     Image map;
     Image mapIcon;
+    Image pDR;
+    Image[] playerIcons;
     ArrayList<Wall> walls;
+    ArrayList<AntiWall> antiwalls;
+    int facing=1;
+    //dr 0
+    //dl 1
+    //ur 2
+    //ul 3
 
     public FirstLevel() {
         super();
@@ -32,7 +40,7 @@ public class FirstLevel extends Level{
         down=false;
         up=false;
     
-        cright=true;
+        cright=true; 
         cleft=true;
         cdown=true;
         cup=true;
@@ -41,9 +49,15 @@ public class FirstLevel extends Level{
         mapOpen = false;
 
         walls = new ArrayList<Wall>();
+        antiwalls = new ArrayList<AntiWall>();
+        playerIcons = new Image[4];
         try {
             map = ImageIO.read(new File("map1.png"));
             mapIcon = ImageIO.read(new File("mapIcon.png"));
+            playerIcons[0] = ImageIO.read(new File("playerDownRight.png"));
+            playerIcons[1] = ImageIO.read(new File("playerDownLeft.png"));
+            playerIcons[2] = ImageIO.read(new File("playerUpRight.png"));
+            playerIcons[3] = ImageIO.read(new File("playerUpLeft.png"));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -52,19 +66,45 @@ public class FirstLevel extends Level{
         addMouseMotionListener(this);
 
         //library
-        addWall(2,350,-500,350,230);
-        addWall(1,170,-500,350,-500);
-        addWall(1,-250,230,350,230);
-        addWall(2,-250,-100,-250,230);
+        addRect(-250,-100,600,330);
+        addDoor(2,350,160,350,220);
+
+        //office
+        addRect(170,-400,180,300);
 
         //caf
-        addWall(2,450,-200,450,170);
+        addRect(450,-200,300,370);
+        addDoor(1,470,-200,530,-200);
+        addDoor(1,660,-200,730,-200);
 
-        addWall(2,750,-200,750,170);
+        //big left wall
+        addWall(2,170,-1500,170,-400);
 
-        addWall(1,450,170,750,170);
+        //business rooms
+        addRect(60,-1000,110,300);
+        addRect(60,-1050,110,50);
+        addRect(60,-1250,110,200);
+
+        //center block (gym)
+        addRect(320,-1250,430,700);
+        addRect(320,-650,220,100);
+        addRect(540,-650,105,100);
+        addRect(645,-650,105,100);
+
+        //kitchen
+        addRect(750,-400,600,200);
+
+        //end of kitchen hallway
+        addWall(2,1350,-550,1350,-400);
+
+        //room 101
+        addRect(1050,-650,400,100);
+
+        //room 102
+        addRect(900,-900,200,350);
+        addDoor(2,1100,-650,1100,-550);
+
         
-        addWall(1,450,-200,750,-200);
     }
 
     public void keyPressed(KeyEvent e) {
@@ -125,15 +165,19 @@ public class FirstLevel extends Level{
         g.fillRect(0, 0, 800, 500);
 
         //DRAW STUFF HERE
-        g.setColor(Color.BLACK);
-        g.setColor(Color.PINK);
-        g.fillRect(375,225,playerSize,playerSize);
-
         for(int i=0;i<walls.size();i++){
             if(walls.get(i)!=null){
                 walls.get(i).display(g,this);
             }
         }
+        for(int i=0;i<antiwalls.size();i++){
+            if(antiwalls.get(i)!=null){
+                antiwalls.get(i).display(g,this);
+            }
+        }
+        g.drawImage(playerIcons[facing],375,225,50,50,null);
+
+
         g.setColor(Color.LIGHT_GRAY);
         if(mouseDetect(700,750,25,75)){
             g.setColor(Color.GRAY);
@@ -172,6 +216,27 @@ public class FirstLevel extends Level{
                 }
             }
         }
+        for(int i=0;i<antiwalls.size();i++){
+            if(antiwalls.get(i)!=null){
+                if(antiwalls.get(i).type==1){
+                    if(antiwalls.get(i).updateUp(this)){
+                        cup=true;
+                    }
+                    if(antiwalls.get(i).updateDown(this)){
+                        cdown=true;
+                    }
+                    
+                }else{
+                    if(antiwalls.get(i).updateLeft(this)){
+                        cleft=true;
+                    }
+                    if(antiwalls.get(i).updateRight(this)){
+                        cright=true;
+                    }
+                    
+                }
+            }
+        }
         if (right && cright){
             right();
         }
@@ -188,18 +253,22 @@ public class FirstLevel extends Level{
 
     public void right() {
         playerX += 5;
+        if(facing%2==1) facing--;
     }
     
     public void left() {
         playerX -= 5;
+        if(facing%2==0) facing++;
     }
     
     public void down() {
         playerY += 5;
+        if(facing>1) facing-=2;
     }
     
     public void up() {
         playerY -= 5;
+        if(facing<2) facing+=2;
     }
 
     public int getPlayerX(){
@@ -212,5 +281,27 @@ public class FirstLevel extends Level{
 
     public void addWall(int type, int x1, int y1, int x2, int y2){
         walls.add(new Wall(type,x1,y1,x2,y2));
+    }
+
+    public void addRect(int x,int y,int width,int height){
+        addWall(1,x,y,x+width,y);
+        addWall(2,x,y,x,y+height);
+        addWall(1,x,y+height,x+width,y+height);
+        addWall(2,x+width,y,x+width,y+height);
+    }
+
+    public void addAntiWall(int type, int x1, int y1, int x2, int y2){
+        antiwalls.add(new AntiWall(type,x1,y1,x2,y2));
+    }
+
+    public void addDoor(int type,int x1,int y1,int x2,int y2){
+        addAntiWall(type, x1, y1, x2, y2);
+        if(type==1){
+            addWall(2,x1,y1-1,x1,y1+1);
+            addWall(2,x2,y1-1,x2,y1+1);
+        }else if(type==2){
+            addWall(1,x1-1,y1,x1+1,y1);
+            addWall(1,x1-1,y2,x1+1,y2);
+        }
     }
 }

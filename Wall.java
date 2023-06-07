@@ -17,10 +17,18 @@ public class Wall {
 
     public boolean updateUp(Level l) {
         boolean up = true;
-        if ((l.getPlayerX() + 400 - 25 > x1 && l.getPlayerX() + 400 - 25 < x2) || (l.getPlayerX() + 400 + 25 > x1 && l.getPlayerX() + 400 + 25 < x2)) {
-            if (l.getPlayerY() + 250 - 25 == y1) {
-                //l.cup = false;
-                up=false;
+        if(x2-x1>50){
+            if ((l.getPlayerX() + 400 - 25 > x1 && l.getPlayerX() + 400 - 25 < x2) || (l.getPlayerX() + 400 + 25 > x1 && l.getPlayerX() + 400 + 25 < x2)) {
+                if (l.getPlayerY() + 250 - 25 == y1) {
+                    //l.cup = false;
+                    up=false;
+                }
+            }
+        }else{
+            if((x2+x1)/2>l.getPlayerX()+400-25 && (x2+x1)/2<l.getPlayerX()+400+25){
+                if (l.getPlayerY() + 250 - 25 == y1) {
+                    up = false;
+                }
             }
         }
         return up;
@@ -29,10 +37,18 @@ public class Wall {
 
     public boolean updateDown(Level l) {
         boolean down = true;
-        if ((l.getPlayerX() + 400 - 25 > x1 && l.getPlayerX() + 400 - 25 < x2) || (l.getPlayerX() + 400 + 25 > x1 && l.getPlayerX() + 400 + 25 < x2)) {
-            if (l.getPlayerY() + 250 + 25 == y1) {
-                //l.cdown = false;
-                down=false;
+        if(x2-x1>50){
+            if ((l.getPlayerX() + 400 - 25 > x1 && l.getPlayerX() + 400 - 25 < x2) || (l.getPlayerX() + 400 + 25 > x1 && l.getPlayerX() + 400 + 25 < x2)) {
+                if (l.getPlayerY() + 250 + 25 == y1) {
+                    //l.cdown = false;
+                    down=false;
+                }
+            }
+        }else{
+            if((x2+x1)/2>l.getPlayerX()+400-25 && (x2+x1)/2<l.getPlayerX()+400+25){
+                if (l.getPlayerY() + 250 + 25 == y1) {
+                    down = false;
+                }
             }
         }
         return down;
@@ -42,10 +58,18 @@ public class Wall {
 
     public boolean updateLeft(Level l) {
         boolean left = true;
-        if ((l.getPlayerY() + 250 - 25 > y1 && l.getPlayerY() + 250 - 25 < y2) || (l.getPlayerY() + 250 + 25 > y1 && l.getPlayerY() + 250 + 25 < y2)) {
-            if (l.getPlayerX() + 400 - 25 == x1) {
-                //l.cleft=false;
-                left = false;
+        if(y2-y1>50){
+            if ((l.getPlayerY() + 250 - 25 > y1 && l.getPlayerY() + 250 - 25 < y2) || (l.getPlayerY() + 250 + 25 > y1 && l.getPlayerY() + 250 + 25 < y2)) {
+                if (l.getPlayerX() + 400 - 25 == x1) {
+                    //l.cleft=false;
+                    left = false;
+                }
+            }
+        }else{
+            if((y2+y1)/2>l.getPlayerY()+250-25 && (y2+y1)/2<l.getPlayerY()+250+25){
+                if (l.getPlayerX() + 400 - 25 == x1) {
+                    left = false;
+                }
             }
         }
         return left;
@@ -55,10 +79,18 @@ public class Wall {
 
     public boolean updateRight(Level l) {
         boolean right = true;
-        if ((l.getPlayerY() + 250 - 25 > y1 && l.getPlayerY() + 250 - 25 < y2) || (l.getPlayerY() + 250 + 25 > y1 && l.getPlayerY() + 250 + 25 < y2)) {
-            if (l.getPlayerX() + 400 + 25 == x1) {
-                //l.cright=false;
-                right = false;
+        if(y2-y1>50){
+            if ((l.getPlayerY() + 250 - 25 > y1 && l.getPlayerY() + 250 - 25 < y2) || (l.getPlayerY() + 250 + 25 > y1 && l.getPlayerY() + 250 + 25 < y2)) {
+                if (l.getPlayerX() + 400 + 25 == x1) {
+                    //l.cright=false;
+                    right = false;
+                }
+            }
+        }else{
+            if((y2+y1)/2>l.getPlayerY()+250-25 && (y2+y1)/2<l.getPlayerY()+250+25){
+                if (l.getPlayerX() + 400 + 25 == x1) {
+                    right = false;
+                }
             }
         }
         return right;
