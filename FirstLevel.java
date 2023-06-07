@@ -51,12 +51,12 @@ public class FirstLevel extends Level{
         antiwalls = new ArrayList<AntiWall>();
         playerIcons = new Image[4];
         try {
-            map = ImageIO.read(new File("map1.png"));
-            mapIcon = ImageIO.read(new File("mapIcon.png"));
-            playerIcons[0] = ImageIO.read(new File("playerDownRight.png"));
-            playerIcons[1] = ImageIO.read(new File("playerDownLeft.png"));
-            playerIcons[2] = ImageIO.read(new File("playerUpRight.png"));
-            playerIcons[3] = ImageIO.read(new File("playerUpLeft.png"));
+            map = ImageIO.read(new File("assets/map1.png"));
+            mapIcon = ImageIO.read(new File("assets/mapIcon.png"));
+            playerIcons[0] = ImageIO.read(new File("assets/playerDownRight.png"));
+            playerIcons[1] = ImageIO.read(new File("assets/playerDownLeft.png"));
+            playerIcons[2] = ImageIO.read(new File("assets/playerUpRight.png"));
+            playerIcons[3] = ImageIO.read(new File("assets/playerUpLeft.png"));
         }catch (Exception e){
             e.printStackTrace();
         }

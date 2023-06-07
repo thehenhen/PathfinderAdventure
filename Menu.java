@@ -19,7 +19,7 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
 
     public Menu(){
         try {
-            image = ImageIO.read(new File("background.jpg"));
+            image = ImageIO.read(new File("assets/background.jpg"));
         }catch (Exception e){
             e.printStackTrace();
         }
