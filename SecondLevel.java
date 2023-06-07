@@ -68,6 +68,10 @@ public class SecondLevel extends Level{
         addRect(-250,-100,600,330);
         addDoor(2,350,160,350,220);
 
+        //hallway over library
+        addRect(-430,-700,600,300);
+        addDoor(2,170,-700,170,-400);
+
         //office
         addRect(170,-400,180,300);
 
@@ -77,12 +81,24 @@ public class SecondLevel extends Level{
         addDoor(1,660,-200,730,-200);
 
         //big left wall
-        addWall(2,170,-1500,170,-400);
+        addWall(2,170,-1600,170,-400);
 
         //business rooms
         addRect(60,-1000,110,300);
         addRect(60,-1050,110,50);
         addRect(60,-1250,110,200);
+        addRect(60,-1450,110,200);
+
+        //left block (therapeutic area)
+        addRect(-450,-1450,510,750);
+        addDoor(1,-225,-1450,-165,-1450);
+        addWall(1,-450,-1150,60,-1150); //middle split
+        addWall(2,-300,-1450,-300,-1250); //left wall
+        addWall(1,-450,-1250,-300,-1250); //door's wall of left wall
+        addDoor(1,-450,-1250,-390,-1250); //door of left wall
+        addWall(2,-53,-1450,-53,-1220); //right wall
+        
+        
 
         //center block (gym)
         addRect(320,-1250,430,700);
