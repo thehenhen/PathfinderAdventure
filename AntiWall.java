@@ -6,6 +6,7 @@ public class AntiWall {
     public int y1;
     public int x2;
     public int y2;
+    
 
     public AntiWall(int type, int x1, int y1, int x2, int y2) {
         this.type = type;
@@ -65,7 +66,6 @@ public class AntiWall {
     }
 
     public void display(Graphics g, Level l) {
-        g.setColor(Color.WHITE);
         g.drawLine(x1 - l.playerX, y1 - l.playerY, x2 - l.playerX, y2 - l.playerY);
     }
 }

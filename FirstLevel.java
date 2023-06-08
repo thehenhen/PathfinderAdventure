@@ -22,11 +22,19 @@ public class FirstLevel extends Level{
     ArrayList<AntiWall> antiwalls;
     int goalX=690;
     int goalY=-1630;
+
+    boolean instructionsDone;
+
     int facing=1;
     //dr 0
     //dl 1
     //ur 2
     //ul 3
+
+    Font smallSerifFont = new Font("Serif", Font.PLAIN, 25);
+    Color backgroundC = new Color(227, 215, 182);
+    Color grey = new Color(68, 69, 69);
+    Color deepBlue = new Color(11, 58, 84);
 
     public FirstLevel() {
         super();
@@ -48,7 +56,7 @@ public class FirstLevel extends Level{
 
         first=true;
         mapOpen = false;
-
+        instructionsDone=false;
         walls = new ArrayList<Wall>();
         antiwalls = new ArrayList<AntiWall>();
         playerIcons = new Image[4];
@@ -150,8 +158,12 @@ public class FirstLevel extends Level{
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
             up=true;
         }
-        if(e.getKeyCode() == KeyEvent.VK_SPACE && checkGoal()){
-            first=false;
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            if(checkGoal()){
+                first=false;
+            }else if(!instructionsDone){
+                instructionsDone=true;
+            }
         }
     }
     
@@ -194,7 +206,7 @@ public class FirstLevel extends Level{
         update();
         
         // BACKGROUND
-        g.setColor(Color.WHITE);
+        g.setColor(backgroundC);
         g.fillRect(0, 0, 800, 500);
 
         //DRAW STUFF HERE
@@ -203,6 +215,7 @@ public class FirstLevel extends Level{
                 walls.get(i).display(g,this);
             }
         }
+        g.setColor(backgroundC);
         for(int i=0;i<antiwalls.size();i++){
             if(antiwalls.get(i)!=null){
                 antiwalls.get(i).display(g,this);
@@ -220,12 +233,29 @@ public class FirstLevel extends Level{
         }
         g.fillRect(700,25,50,50);
         g.drawImage(mapIcon,700,25,50,50,null);
+        
+        g.setFont(smallSerifFont); 
+        g.setColor(grey);
+        g.drawString("Goal: Make your way to room 106",20,50);
+
         if(mapOpen){
             g.drawImage(map,200,30,400,400,null);
         }
 
-        if(checkGoal()){
-            System.out.println("Welcome to class!");
+        if(!instructionsDone){
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.drawString("Welcome to school!",300,100);
+            g.drawString("Your first class is in room 106.",255,140);
+            g.drawString("Use the map to help you navigate.",240,180);
+            g.drawLine(590,170,650,120);
+            g.drawLine(635,125,650,120);
+            g.drawLine(645,135,650,120);
+            g.drawString("Use WASD or arrow keys to move.",230,220);
+            g.drawString("Press SPACE to start.",300,300);
         }
 
         //g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
