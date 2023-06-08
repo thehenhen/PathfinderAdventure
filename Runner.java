@@ -12,22 +12,25 @@ public class Runner extends JFrame implements KeyListener,MouseListener,MouseMot
     SecondLevel second = new SecondLevel();
 
     public Runner(){
-        // menu.addKeyListener(this); 
-        // menu.addMouseListener(this);
-        first.addKeyListener(this);
+        menu.addKeyListener(this); 
+        menu.addMouseListener(this);
+        menu.addMouseMotionListener(this);
     }
 
     public void keyPressed(KeyEvent e) {
         if(first.first){
             first.keyPressed(e);
+        }else if(second.second){
+            second.keyPressed(e);
         }
     }
     
     public void keyReleased(KeyEvent e) {
         if(first.first){
             first.keyReleased(e); 
+        }else if(second.second){
+            second.keyReleased(e);
         }
-        System.out.println("release");
     }
 
     public void keyTyped(KeyEvent e) {}
@@ -35,13 +38,21 @@ public class Runner extends JFrame implements KeyListener,MouseListener,MouseMot
     public void mouseClicked(MouseEvent e) {
         if(first.first){
             first.mouseClicked(e);
+        }else if(second.second){
+            second.mouseClicked(e);
         }
     }
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
-    public void mouseMoved(MouseEvent e) {System.out.println("hi");}
+    public void mouseMoved(MouseEvent e) {
+        if(first.first){
+            first.mouseMoved(e);
+        }else if(second.second){
+            second.mouseMoved(e);
+        }
+    }
     public void mouseDragged(MouseEvent e) {}
 
     public void pauseGame() { pause = true; }

@@ -36,7 +36,6 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
         mouseX=e.getX();
         mouseY=e.getY();
         if(mouseX>345 && mouseX<455 && mouseY>250 && mouseY<290){
-            System.out.println("start");
             menu=false;
         }
     }

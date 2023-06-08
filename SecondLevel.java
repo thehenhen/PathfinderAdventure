@@ -64,9 +64,6 @@ public class SecondLevel extends Level{
         }catch (Exception e){
             e.printStackTrace();
         }
-        addKeyListener(this);
-        addMouseListener(this);
-        addMouseMotionListener(this);
 
         //walls
         if(true){
@@ -196,9 +193,6 @@ public class SecondLevel extends Level{
         if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
             up=true;
         }
-        if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            second=false;
-        }
     }
     
     public void keyReleased(KeyEvent e) {
@@ -218,7 +212,7 @@ public class SecondLevel extends Level{
     public void keyTyped(KeyEvent e) {}
 
     public void mouseClicked(MouseEvent e) {
-        if(mouseDetect(700,750,25,75)){
+        if(mouseDetect(708,758,57,105)){
             mapOpen=!mapOpen;
         }
     }
@@ -259,7 +253,7 @@ public class SecondLevel extends Level{
 
 
         g.setColor(Color.LIGHT_GRAY);
-        if(mouseDetect(700,750,25,75)){
+        if(mouseDetect(708,758,57,105)){
             g.setColor(Color.GRAY);
         }
         g.fillRect(700,25,50,50);
@@ -267,8 +261,6 @@ public class SecondLevel extends Level{
         if(mapOpen){
             g.drawImage(map,200,30,400,400,null);
         }
-        System.out.println(mouseX+","+mouseY);
-        //g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
     }
 
     public void update() {

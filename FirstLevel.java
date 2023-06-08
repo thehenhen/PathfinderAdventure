@@ -70,10 +70,7 @@ public class FirstLevel extends Level{
         }catch (Exception e){
             e.printStackTrace();
         }
-        addKeyListener(this);
-        addMouseListener(this);
-        addMouseMotionListener(this);
-
+        if(true){
         //library
         addRect(-250,-100,600,330);
         addDoor(2,350,60,350,120);
@@ -142,7 +139,7 @@ public class FirstLevel extends Level{
 
         //room 105
         addRect(770,-1700,380,200);
-
+        }
     }
 
     public void keyPressed(KeyEvent e) {
@@ -184,10 +181,9 @@ public class FirstLevel extends Level{
     public void keyTyped(KeyEvent e) {}
 
     public void mouseClicked(MouseEvent e) {
-        if(mouseDetect(700,750,25,75)){
+        if(mouseDetect(708,758,57,105)){
             mapOpen=!mapOpen;
         }
-        System.out.println("ferst click");
     }
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
@@ -196,6 +192,7 @@ public class FirstLevel extends Level{
     public void mouseMoved(MouseEvent e) {
         mouseX=e.getX();
         mouseY=e.getY();
+        System.out.println(mouseX+","+mouseY);
     }
     public void mouseDragged(MouseEvent e) {}
     public boolean mouseDetect(int x1,int x2,int y1,int y2){
@@ -229,7 +226,7 @@ public class FirstLevel extends Level{
 
 
         g.setColor(Color.LIGHT_GRAY);
-        if(mouseDetect(700,750,25,75)){
+        if(mouseDetect(708,758,57,105)){
             g.setColor(Color.GRAY);
         }
         g.fillRect(700,25,50,50);
@@ -258,8 +255,6 @@ public class FirstLevel extends Level{
             g.drawString("Use WASD or arrow keys to move.",230,220);
             g.drawString("Press SPACE to start.",300,300);
         }
-
-        //g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
     }
 
     public void update() {
