@@ -328,22 +328,22 @@ public class FirstLevel extends Level{
     }
 
     public void right() {
-        playerX += 20;
+        playerX += 5;
         if(facing%2==1) facing--;
     }
     
     public void left() {
-        playerX -= 20;
+        playerX -= 5;
         if(facing%2==0) facing++;
     }
     
     public void down() {
-        playerY += 20;
+        playerY += 5;
         if(facing>1) facing-=2;
     }
     
     public void up() {
-        playerY -= 20;
+        playerY -= 5;
         if(facing<2) facing+=2;
     }
 
