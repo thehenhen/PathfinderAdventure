@@ -66,7 +66,7 @@ public class SecondLevel extends Level{
 
         //library
         addRect(-250,-100,600,330);
-        addDoor(2,350,160,350,220);
+        addDoor(2,350,60,350,120);
 
         //hallway over library
         addRect(-430,-700,600,300);
@@ -74,6 +74,7 @@ public class SecondLevel extends Level{
 
         //office
         addRect(170,-400,180,300);
+        addDoor(2,350,-280,350,-220);
 
         //caf
         addRect(450,-200,300,370);
@@ -81,28 +82,63 @@ public class SecondLevel extends Level{
         addDoor(1,660,-200,730,-200);
 
         //big left wall
-        addWall(2,170,-1600,170,-400);
+        addWall(2,170,-1400,170,-400);
 
         //business rooms
-        addRect(60,-1000,110,300);
+        addRect(60,-1000,110,300); //room 109
         addRect(60,-1050,110,50);
         addRect(60,-1250,110,200);
-        addRect(60,-1450,110,200);
 
         //left block (therapeutic area)
-        addRect(-450,-1450,510,750);
-        addDoor(1,-225,-1450,-165,-1450);
-        addWall(1,-450,-1150,60,-1150); //middle split
-        addWall(2,-300,-1450,-300,-1250); //left wall
+        addRect(-450,-1400,510,700);
+        addDoor(1,-225,-1400,-165,-1400); //entrance #1
+        
+        addWall(1,-450,-1100,60,-1100); //middle split
+        addWall(1,-300,-1325,-53,-1325); //middle of middle split
+        addDoor(1,-225,-1325,-165,-1325); //door for middle of middle split
+        
+        addWall(2,-300,-1400,-300,-1250); //left wall
         addWall(1,-450,-1250,-300,-1250); //door's wall of left wall
         addDoor(1,-450,-1250,-390,-1250); //door of left wall
-        addWall(2,-53,-1450,-53,-1220); //right wall
         
+        addWall(2,-53,-1400,-53,-1160); //right wall
         
+        addRect(-337,-1180,120,80); //room near middle split
+        addDoor(1,-294,-1180,-234,-1180);
+        addDoor(1,-320,-1100,-260,-1100);
+        addWall(2,-337,-1100,-337,-820);
+        
+        addRect(-165,-1025,225,325); //big room in #2 space for left block
+        addDoor(1,0,-1025,60,-1025);
+
+        addWall(1,-650,-520,-430,-520); //bottom room bottom wall
+        addWall(1,-650,-840,-450,-840); //bottom room top wall
+        addWall(2,-650,-840,-650,-520); //bottom room left wall
+        addDoor(2,-450,-790,-450,-730); //bottom room door
+
+        addWall(1,-650,-870,-450,-870);//middle room bottom wall
+        addWall(1,-650,-1050,-450,-1050); //middle room top wall
+        addWall(2,-650,-1050,-650,-870); //middle room left wall
+        addDoor(2,-450,-990,-450,-930); //middle room door
+
+        addWall(1,-650,-1080,-450,-1080); //top room bottom wall
+        addWall(1,-650,-1360,-450,-1360); //top room top wall
+        addWall(2,-650,-1360,-650,-1080); //top room left wall
+        addDoor(2,-450,-1200,-450,-1140); //top room door
+        
+        //hallway extension to therapeuatic area
+        addRect(-375,-1550,375,150);
+        addDoor(2,0,-1550,0,-1400);
 
         //center block (gym)
-        addRect(320,-1250,430,700);
+        addRect(320,-1400,430,850);
+        addWall(1,320,-1300,750,-1300);
+        addDoor(1,505,-1300,565,-1300);
+        addDoor(2,320,-800,320,-740);
+
         addRect(320,-650,220,100);
+        addDoor(1,400,-550,460,-550);
+
         addRect(540,-650,105,100);
         addRect(645,-650,105,100);
 
@@ -119,7 +155,25 @@ public class SecondLevel extends Level{
         addRect(900,-900,200,350);
         addDoor(2,1100,-650,1100,-550);
 
+        //room 103
+        addRect(900,-1250,250,350);
 
+        //room 104
+        addRect(900,-1500,250,250);
+
+        //top left walls
+        addWall(1,0,-1400,170,-1400);
+        addWall(2,0,-1550,0,-1400);
+
+        //room 107
+        addRect(-30,-1700,500,150);
+
+        //room 106
+        addRect(470,-1700,300,150);
+        addDoor(1,540,-1550,600,-1550);
+
+        //room 105
+        addRect(770,-1700,380,200);
     }
 
     public void keyPressed(KeyEvent e) {
