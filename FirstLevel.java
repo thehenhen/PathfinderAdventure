@@ -187,6 +187,7 @@ public class FirstLevel extends Level{
         if(mouseDetect(700,750,25,75)){
             mapOpen=!mapOpen;
         }
+        System.out.println("ferst click");
     }
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}

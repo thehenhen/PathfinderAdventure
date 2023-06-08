@@ -16,10 +16,12 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
     Font largeSerifFont;
     Font smallSerifFont;
     Font smallestSerifFont;
+    Image map;
 
     public Menu(){
         try {
             image = ImageIO.read(new File("assets/background.jpg"));
+            map = ImageIO.read(new File("assets/map1.png"));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -58,6 +60,7 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
 
             // DRAW STUFF HERE
             g.drawImage(image,0,0,800,500,null);
+            
             g.setFont(largeSerifFont);
             g.setColor(Color.orange);
             g.drawString("PATHFINDER", 150, 150);
@@ -66,7 +69,6 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
             g.setFont(smallestSerifFont);
             g.setColor(Color.yellow);
             g.drawString("PLAY",350,285);
-            g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
         }
     }
 

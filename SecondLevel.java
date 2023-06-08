@@ -26,6 +26,10 @@ public class SecondLevel extends Level{
     //ur 2
     //ul 3
 
+    Color backgroundC = new Color(227, 215, 182);
+    Color grey = new Color(68, 69, 69);
+    Color deepBlue = new Color(11, 58, 84);
+
     public SecondLevel() {
         super();
         playerX = 0;
@@ -64,6 +68,8 @@ public class SecondLevel extends Level{
         addMouseListener(this);
         addMouseMotionListener(this);
 
+        //walls
+        if(true){
         //library
         addRect(-250,-100,600,330);
         addDoor(2,350,60,350,120);
@@ -174,6 +180,7 @@ public class SecondLevel extends Level{
 
         //room 105
         addRect(770,-1700,380,200);
+        }
     }
 
     public void keyPressed(KeyEvent e) {
@@ -233,7 +240,7 @@ public class SecondLevel extends Level{
         update();
         
         // BACKGROUND
-        g.setColor(Color.WHITE);
+        g.setColor(backgroundC);
         g.fillRect(0, 0, 800, 500);
 
         //DRAW STUFF HERE
@@ -242,6 +249,7 @@ public class SecondLevel extends Level{
                 walls.get(i).display(g,this);
             }
         }
+        g.setColor(backgroundC);
         for(int i=0;i<antiwalls.size();i++){
             if(antiwalls.get(i)!=null){
                 antiwalls.get(i).display(g,this);
@@ -259,7 +267,8 @@ public class SecondLevel extends Level{
         if(mapOpen){
             g.drawImage(map,200,30,400,400,null);
         }
-        g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
+        System.out.println(mouseX+","+mouseY);
+        //g.drawString("(" + mouseX + "," + mouseY + ")", mouseX, mouseY);
     }
 
     public void update() {

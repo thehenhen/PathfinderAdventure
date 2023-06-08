@@ -1,7 +1,7 @@
 import java.awt.event.*;
 import javax.swing.JFrame;
 
-public class Runner extends JFrame implements KeyListener,MouseListener
+public class Runner extends JFrame implements KeyListener,MouseListener,MouseMotionListener
 {
     private boolean shouldStop = false;
 
@@ -12,49 +12,37 @@ public class Runner extends JFrame implements KeyListener,MouseListener
     SecondLevel second = new SecondLevel();
 
     public Runner(){
-        menu.addKeyListener(this); 
-        menu.addMouseListener(this);
+        // menu.addKeyListener(this); 
+        // menu.addMouseListener(this);
+        first.addKeyListener(this);
     }
 
     public void keyPressed(KeyEvent e) {
         if(first.first){
             first.keyPressed(e);
-        }else if(second.second){
-            second.keyPressed(e);
-            System.out.println("press");
         }
     }
     
     public void keyReleased(KeyEvent e) {
         if(first.first){
             first.keyReleased(e); 
-        }else if(second.second){
-            second.keyReleased(e);
-            System.out.println("release");
         }
+        System.out.println("release");
     }
 
     public void keyTyped(KeyEvent e) {}
     
     public void mouseClicked(MouseEvent e) {
-        System.out.println("click");
         if(first.first){
             first.mouseClicked(e);
-        }else if(second.second){
-            second.mouseClicked(e);
-            
         }
     }
     public void mouseEntered(MouseEvent e) {}
-
-
     public void mouseExited(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
-
-    public void shouldStop() {
-        this.shouldStop = true;
-    }
+    public void mouseMoved(MouseEvent e) {System.out.println("hi");}
+    public void mouseDragged(MouseEvent e) {}
 
     public void pauseGame() { pause = true; }
 
@@ -76,7 +64,7 @@ public class Runner extends JFrame implements KeyListener,MouseListener
             if( !pause )
             {
                 if(menu.menu){
-                    menu.repaint();
+                    //menu.repaint();
                 }
                 else if(first.first){
                     first.repaint();
