@@ -24,6 +24,7 @@ public class FirstLevel extends Level{
     int goalY=-1630;
 
     boolean instructionsDone;
+    boolean endMessage;
 
     int facing=1;
     //dr 0
@@ -143,16 +144,16 @@ public class FirstLevel extends Level{
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
+        if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && instructionsDone && !checkGoal()){
             right=true;
         }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
+        if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) && instructionsDone && !checkGoal()){
             left=true;
         }  
-        if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
+        if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) && instructionsDone && !checkGoal()){
             down=true;
         }
-        if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
+        if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && instructionsDone && !checkGoal()){
             up=true;
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
@@ -255,6 +256,16 @@ public class FirstLevel extends Level{
             g.drawString("Use WASD or arrow keys to move.",230,220);
             g.drawString("Press SPACE to start.",300,300);
         }
+        
+        if(checkGoal()){
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.drawString("Congrats, you made it to class!",240,200);
+            g.drawString("Press SPACE to continue.",270,300);
+        }
     }
 
     public void update() {
@@ -319,22 +330,22 @@ public class FirstLevel extends Level{
     }
 
     public void right() {
-        playerX += 5;
+        playerX += 20;
         if(facing%2==1) facing--;
     }
     
     public void left() {
-        playerX -= 5;
+        playerX -= 20;
         if(facing%2==0) facing++;
     }
     
     public void down() {
-        playerY += 5;
+        playerY += 20;
         if(facing>1) facing-=2;
     }
     
     public void up() {
-        playerY -= 5;
+        playerY -= 20;
         if(facing<2) facing+=2;
     }
 

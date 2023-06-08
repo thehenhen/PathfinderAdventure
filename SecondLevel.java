@@ -55,7 +55,7 @@ public class SecondLevel extends Level{
         antiwalls = new ArrayList<AntiWall>();
         playerIcons = new Image[4];
         try {
-            map = ImageIO.read(new File("assets/map1.png"));
+            map = ImageIO.read(new File("assets/map2.png"));
             mapIcon = ImageIO.read(new File("assets/mapIcon.png"));
             playerIcons[0] = ImageIO.read(new File("assets/playerDownRight.png"));
             playerIcons[1] = ImageIO.read(new File("assets/playerDownLeft.png"));
