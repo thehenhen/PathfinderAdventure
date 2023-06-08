@@ -24,7 +24,6 @@ public class FirstLevel extends Level{
     int goalY=-1630;
 
     boolean instructionsDone;
-    boolean endMessage;
 
     int facing=1;
     //dr 0
@@ -55,7 +54,7 @@ public class FirstLevel extends Level{
         cdown=true;
         cup=true;
 
-        first=true;
+        first=false;
         mapOpen = false;
         instructionsDone=false;
         walls = new ArrayList<Wall>();
@@ -193,7 +192,6 @@ public class FirstLevel extends Level{
     public void mouseMoved(MouseEvent e) {
         mouseX=e.getX();
         mouseY=e.getY();
-        System.out.println(mouseX+","+mouseY);
     }
     public void mouseDragged(MouseEvent e) {}
     public boolean mouseDetect(int x1,int x2,int y1,int y2){
@@ -221,7 +219,7 @@ public class FirstLevel extends Level{
             }
         }
         g.setColor(Color.GREEN);
-        g.fillOval(640-playerX,-1680-playerY,100,100);
+        g.fillOval(goalX-50-playerX,goalY-50-playerY,100,100);
         
         g.drawImage(playerIcons[facing],375,225,50,50,null);
 

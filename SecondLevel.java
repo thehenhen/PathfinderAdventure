@@ -26,14 +26,19 @@ public class SecondLevel extends Level{
     //ur 2
     //ul 3
 
+    boolean instructionsDone;
+    int goalX=400;
+    int goalY=200;
+
     Color backgroundC = new Color(227, 215, 182);
     Color grey = new Color(68, 69, 69);
     Color deepBlue = new Color(11, 58, 84);
+    Font smallSerifFont = new Font("Serif", Font.PLAIN, 25);
 
     public SecondLevel() {
         super();
-        playerX = 0;
-        playerY = 0;
+        playerX = -440;
+        playerY = -1100;
         mouseX=0;
         mouseY=0;
         playerSize=50;
@@ -51,9 +56,12 @@ public class SecondLevel extends Level{
         second=true;
         mapOpen = false;
 
+        instructionsDone=false;
+
         walls = new ArrayList<Wall>();
         antiwalls = new ArrayList<AntiWall>();
         playerIcons = new Image[4];
+        
         try {
             map = ImageIO.read(new File("assets/map2.png"));
             mapIcon = ImageIO.read(new File("assets/mapIcon.png"));
@@ -181,17 +189,25 @@ public class SecondLevel extends Level{
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
+        if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && instructionsDone && !checkGoal()){
             right=true;
         }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
+        if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) && instructionsDone && !checkGoal()){
             left=true;
         }  
-        if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
+        if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) && instructionsDone && !checkGoal()){
             down=true;
         }
-        if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
+        if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && instructionsDone && !checkGoal()){
             up=true;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            if(!instructionsDone){
+                instructionsDone=true;
+            }
+            if(checkGoal()){
+                second=false;
+            }
         }
     }
     
@@ -249,6 +265,8 @@ public class SecondLevel extends Level{
                 antiwalls.get(i).display(g,this);
             }
         }
+        g.setColor(Color.GREEN);
+        g.fillOval(goalX-50-playerX,goalY-50-playerY,100,100);
         g.drawImage(playerIcons[facing],375,225,50,50,null);
 
 
@@ -261,6 +279,31 @@ public class SecondLevel extends Level{
         if(mapOpen){
             g.drawImage(map,200,30,400,400,null);
         }
+        //System.out.println(playerX+","+playerY);
+        g.setFont(smallSerifFont);
+        if(!instructionsDone){
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.drawString("Uh oh, you were visiting your friend in another",170,140);
+            g.drawString("school when you got lost!",270,180);
+            g.drawString("Use the map to help you navigate out.",220,220);
+            g.drawString("Use WASD or arrow keys to move.",230,260);
+            g.drawString("Press SPACE to start.",300,300);
+        }
+
+        if(checkGoal()){
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.drawString("Congrats, you made it out of the building!",200,200);
+            g.drawString("Press SPACE to continue.",270,300);
+        }
+        
     }
 
     public void update() {
@@ -376,5 +419,13 @@ public class SecondLevel extends Level{
             addWall(1,x1-1,y1,x1+1,y1);
             addWall(1,x1-1,y2,x1+1,y2);
         }
+    }
+
+    public boolean checkGoal(){
+        boolean reached=false;
+        if(Math.abs(playerX+400-goalX)<30 && Math.abs(playerY+250-goalY)<30){
+            reached=true;
+        }
+        return reached;
     }
 }
