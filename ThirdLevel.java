@@ -6,6 +6,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
 
 public class ThirdLevel extends Level{
     int playerSize;
@@ -30,10 +35,19 @@ public class ThirdLevel extends Level{
     int goalX=400;
     int goalY=200;
 
+    int secondsPassed=0;
+    String temp="";
+
     Color backgroundC = new Color(227, 215, 182);
     Color grey = new Color(68, 69, 69);
     Color deepBlue = new Color(11, 58, 84);
     Font smallSerifFont = new Font("Serif", Font.PLAIN, 25);
+
+    Timer timer = new Timer(1000, new ActionListener() {
+        public void actionPerformed(ActionEvent arg0) {
+            secondsPassed++;
+        }
+    });
 
     public ThirdLevel() {
         super();
@@ -72,7 +86,7 @@ public class ThirdLevel extends Level{
         }catch (Exception e){
             e.printStackTrace();
         }
-
+        timer.start();
         //walls
         if(true){
         //library
@@ -280,6 +294,13 @@ public class ThirdLevel extends Level{
             g.drawImage(map,200,30,400,400,null);
         }
         g.setFont(smallSerifFont);
+        g.setColor(grey);
+        temp="";
+        if(secondsPassed%60<10){
+            temp="0";
+        }
+        g.drawString("Time Elapsed: "+String.valueOf(secondsPassed/60)+":"+temp+String.valueOf(secondsPassed%60),10,450);
+
         if(!instructionsDone){
             g.setColor(deepBlue);
             g.fillRect(100,30,600,390);
