@@ -1,5 +1,8 @@
 import java.awt.*;
 
+/**
+ * Wall class to define boundaries of where player can move
+ */
 public class Wall {
     public int type;
     public int x1;
@@ -7,6 +10,14 @@ public class Wall {
     public int x2;
     public int y2;
 
+    /**
+     * Constructor to make a Wall
+     * @param type horizontal/vertical
+     * @param x1 x-coord of first point
+     * @param y1 y-coord of first point
+     * @param x2 x-coord of second point
+     * @param y2 y-coord of second point
+     */
     public Wall(int type, int x1, int y1, int x2, int y2) {
         this.type = type;
         this.x1 = x1;
@@ -15,6 +26,11 @@ public class Wall {
         this.y2 = y2;
     }
 
+    /**
+     * Checks if player can move up
+     * @param l Level object
+     * @return up
+     */
     public boolean updateUp(Level l) {
         boolean up = true;
         if(x2-x1>50){
@@ -34,7 +50,11 @@ public class Wall {
         return up;
     }
     
-
+    /**
+     * Checks if player can move down
+     * @param l Level object
+     * @return up
+     */
     public boolean updateDown(Level l) {
         boolean down = true;
         if(x2-x1>50){
@@ -55,7 +75,11 @@ public class Wall {
     }
     
     
-
+    /**
+     * Checks if player can move left
+     * @param l Level object
+     * @return up
+     */
     public boolean updateLeft(Level l) {
         boolean left = true;
         if(y2-y1>50){
@@ -76,7 +100,11 @@ public class Wall {
     }
     
     
-
+    /**
+     * Checks if player can move right
+     * @param l Level object
+     * @return up
+     */
     public boolean updateRight(Level l) {
         boolean right = true;
         if(y2-y1>50){
@@ -96,7 +124,11 @@ public class Wall {
         return right;
     }
     
-
+    /**
+     * Displays the Wall
+     * @param g
+     * @param l
+     */
     public void display(Graphics g, Level l) {
         g.setColor(Color.BLACK);
         g.drawLine(x1 - l.playerX, y1 - l.playerY, x2 - l.playerX, y2 - l.playerY);
