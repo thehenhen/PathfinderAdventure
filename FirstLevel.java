@@ -7,35 +7,41 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+/**
+ * Purpose: manages functions and displaying of first level
+ */
 public class FirstLevel extends Level{
-    int playerSize;
-    boolean right;
-    boolean left;
-    boolean down;
-    boolean up;
-    boolean first;
-    boolean mapOpen;
-    Image map;
-    Image mapIcon;
-    Image[] playerIcons;
-    ArrayList<Wall> walls;
-    ArrayList<AntiWall> antiwalls;
-    int goalX=690;
-    int goalY=-1630;
+    private int playerSize;
+    private boolean right;
+    private boolean left;
+    private boolean down;
+    private boolean up;
+    private boolean first;
+    private boolean mapOpen;
+    private Image map;
+    private Image mapIcon;
+    private Image[] playerIcons;
+    private ArrayList<Wall> walls;
+    private ArrayList<AntiWall> antiwalls;
+    private int goalX=690;
+    private int goalY=-1630;
 
-    boolean instructionsDone;
+    private boolean instructionsDone;
 
-    int facing=1;
+    private int facing=1;
     //dr 0
     //dl 1
     //ur 2
     //ul 3
 
-    Font smallSerifFont = new Font("Serif", Font.PLAIN, 25);
-    Color backgroundC = new Color(227, 215, 182);
-    Color grey = new Color(68, 69, 69);
-    Color deepBlue = new Color(11, 58, 84);
+    private Font smallSerifFont = new Font("Serif", Font.PLAIN, 25);
+    private Color backgroundC = new Color(227, 215, 182);
+    private Color grey = new Color(68, 69, 69);
+    private Color deepBlue = new Color(11, 58, 84);
 
+    /**
+     * Purpose: Constructs the FirstLevel object
+     */
     public FirstLevel() {
         super();
         playerX = 0;
@@ -142,6 +148,9 @@ public class FirstLevel extends Level{
         }
     }
 
+    /**
+     * Purpose: Manages interaction when a key is pressed
+     */
     public void keyPressed(KeyEvent e) {
         if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && instructionsDone && !checkGoal()){
             right=true;
@@ -164,6 +173,9 @@ public class FirstLevel extends Level{
         }
     }
     
+    /**
+     * Purpose: manages interaction when a key is released
+     */
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
             right=false;
@@ -178,8 +190,15 @@ public class FirstLevel extends Level{
             up=false;
         }
     }
+
+    /**
+     * Purpose: manages interaction when a key is typed
+     */
     public void keyTyped(KeyEvent e) {}
 
+    /**
+     * Purpose: manages interaction when the mouse is clicked
+     */
     public void mouseClicked(MouseEvent e) {
         if(mouseDetect(708,758,57,105)){
             mapOpen=!mapOpen;
@@ -189,11 +208,22 @@ public class FirstLevel extends Level{
     public void mouseExited(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
+    /**
+     * Purpose: updates the mouse coordinates when the mouse is moved
+     */
     public void mouseMoved(MouseEvent e) {
         mouseX=e.getX();
         mouseY=e.getY();
     }
     public void mouseDragged(MouseEvent e) {}
+    /**
+     * Purpose: makes moues detection easier by defining coordinates and borders
+     * @param x1 lower limit of mouseX
+     * @param x2 upper limit of mouseX
+     * @param y1 lower limit of mouseY
+     * @param y2 upper limit of mouseY
+     * @return if the mouse is within the defined borders
+     */
     public boolean mouseDetect(int x1,int x2,int y1,int y2){
         return(mouseX>=x1 && mouseX<=x2 && mouseY>=y1 && mouseY<=y2);
     }
@@ -399,5 +429,9 @@ public class FirstLevel extends Level{
         playerY=0;
         mapOpen=false;
         first=true;
+    }
+
+    public boolean getFirst(){
+        return first;
     }
 }
