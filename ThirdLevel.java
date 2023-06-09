@@ -2,13 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.imageio.ImageIO;
 import java.io.*;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 
@@ -24,6 +19,7 @@ public class ThirdLevel extends Level{
     Image mapIcon;
     Image[] playerIcons;
     Image printer;
+    Image computer;
     ArrayList<Wall> walls;
     ArrayList<AntiWall> antiwalls;
     int facing=1;
@@ -33,8 +29,9 @@ public class ThirdLevel extends Level{
     //ul 3
 
     boolean instructionsDone;
-    int goalX=400;
-    int goalY=200;
+    int goalX=1080;
+    int goalY=-1000;
+    boolean failed=false;
 
     int secondsPassed=0;
     String temp="";
@@ -43,6 +40,19 @@ public class ThirdLevel extends Level{
     Color grey = new Color(68, 69, 69);
     Color deepBlue = new Color(11, 58, 84);
     Font smallSerifFont = new Font("Serif", Font.PLAIN, 25);
+    
+    /*
+     * 0: Main Entrance --> room 103 (print from computer)--> 
+     * 1: room 114 (printer) --> 
+     * 2: STORAGE (get paper) --> 
+     * 3: room 114 (place paper in printer) --> 
+     * 4: Social Offices (get ink) --> 
+     * 5: room 114 (place ink in printer and get printed paper) --> 
+     * 6: room 111 (hand in paper to teacher)
+     */
+
+    int stage=0;
+    String[] goals;
 
     Timer timer = new Timer(1000, new ActionListener() {
         public void actionPerformed(ActionEvent arg0) {
@@ -76,6 +86,14 @@ public class ThirdLevel extends Level{
         walls = new ArrayList<Wall>();
         antiwalls = new ArrayList<AntiWall>();
         playerIcons = new Image[4];
+        goals = new String[7];
+        goals[0]="Go to the computer in room 103 to print.";
+        goals[1]="Go to the printer in room 114 to get your work.";
+        goals[2]="Go to the STORAGE room to get paper.";
+        goals[3]="Go to room 114 to put the paper in the printer.";
+        goals[4]="Out of ink! Go to the Social Office to get ink.";
+        goals[5]="Go to room 114 to put the ink in the printer.";
+        goals[6]="Go to room 111 to hand in your paper to the teacher.";
         
         try {
             map = ImageIO.read(new File("assets/map3.png"));
@@ -85,10 +103,10 @@ public class ThirdLevel extends Level{
             playerIcons[2] = ImageIO.read(new File("assets/playerUpRight.png"));
             playerIcons[3] = ImageIO.read(new File("assets/playerUpLeft.png"));
             printer = ImageIO.read(new File("assets/printer.png"));
+            computer = ImageIO.read(new File("assets/computer.png"));
         }catch (Exception e){
             e.printStackTrace();
         }
-        timer.start();
         //walls
         if(true){
         //library
@@ -134,10 +152,10 @@ public class ThirdLevel extends Level{
         
         addWall(2,-53,-1400,-53,-1160); //right wall
         
-        addRect(-337,-1180,120,80); //room near middle split
-        addDoor(1,-294,-1180,-234,-1180);
+        addRect(-340,-1180,120,80); //room near middle split
+        addDoor(1,-295,-1180,-235,-1180);
         addDoor(1,-320,-1100,-260,-1100);
-        addWall(2,-337,-1100,-337,-820);
+        addWall(2,-340,-1100,-340,-820);
         
         addRect(-165,-1025,225,325); //big room in #2 space for left block
         addDoor(1,0,-1025,60,-1025);
@@ -193,6 +211,7 @@ public class ThirdLevel extends Level{
 
         //room 103
         addRect(900,-1250,250,350);
+        addDoor(2,900,-1105,900,-1045);
 
         //room 104
         addRect(900,-1500,250,250);
@@ -214,24 +233,56 @@ public class ThirdLevel extends Level{
     }
 
     public void keyPressed(KeyEvent e) {
-        if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && instructionsDone && !checkGoal()){
+        if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && instructionsDone && !checkGoal() && !failed){
             right=true;
         }
-        if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) && instructionsDone && !checkGoal()){
+        if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) && instructionsDone && !checkGoal() && !failed){
             left=true;
         }  
-        if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) && instructionsDone && !checkGoal()){
+        if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) && instructionsDone && !checkGoal() && !failed){
             down=true;
         }
-        if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && instructionsDone && !checkGoal()){
+        if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && instructionsDone && !checkGoal() && !failed){
             up=true;
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
             if(!instructionsDone){
                 instructionsDone=true;
+                timer.start();
             }
-            if(checkGoal()){
-                third=false;
+            if(failed){
+                restart();
+                instructionsDone=true;
+                timer.start();
+            }
+            else if(checkGoal()){
+                if(stage==0){
+                    goalX=-700+400;
+                    goalY=-140+250;
+                    stage++;
+                }else if(stage==1){
+                    goalX=1220+400;
+                    goalY=-880+250;
+                    stage++;
+                }else if(stage==2){
+                    goalX=-700+400;
+                    goalY=-140+250;
+                    stage++;
+                }else if(stage==3){
+                    goalX=-20+400;
+                    goalY=-1600+250;
+                    stage++;
+                }else if(stage==4){
+                    goalX=-700+400;
+                    goalY=-140+250;
+                    stage++;
+                }else if(stage==5){
+                    goalX=-960+400;
+                    goalY=-1540+400;
+                    stage++;
+                }else if(stage==6){
+                    third=false;
+                }
             }
         }
     }
@@ -294,7 +345,8 @@ public class ThirdLevel extends Level{
         g.fillOval(goalX-50-playerX,goalY-50-playerY,100,100);
         g.drawImage(playerIcons[facing],375,225,50,50,null);
 
-        g.drawImage(printer,goalX-735-playerX,goalY-120-playerY,75,75,null); //printer
+        g.drawImage(printer,-300-playerX-40,110-playerY-40,75,75,null); //printer
+        g.drawImage(computer,1080-playerX-100,-1000-playerY-50,null);
 
 
         g.setColor(Color.LIGHT_GRAY);
@@ -308,6 +360,7 @@ public class ThirdLevel extends Level{
         }
         g.setFont(smallSerifFont);
         g.setColor(grey);
+        g.drawString("Goal: "+goals[stage],20,50);
         temp="";
         if(secondsPassed%60<10){
             temp="0";
@@ -320,26 +373,63 @@ public class ThirdLevel extends Level{
             g.setColor(backgroundC);
             g.fillRect(120,50,560,350);
             g.setColor(grey);
-            g.drawString("Uh oh, you were visiting your friend in another",170,140);
-            g.drawString("school when you got lost!",270,180);
-            g.drawString("Use the map to help you navigate out.",220,220);
-            g.drawString("Use WASD or arrow keys to move.",230,260);
-            g.drawString("Press SPACE to start.",300,300);
+            g.drawString("Uh oh, you forgot to print your homework at home.",140,140);
+            g.drawString("Now you need to use the school printer!",200,180);
+            g.drawString("You have 5 minutes to accomplish this task.",180,220);
+            g.drawString("Use the map to help you navigate.",220,260);
+            g.drawString("Use WASD or arrow keys to move.",215,300);
+            g.drawString("Press SPACE to start.",300,340);
         }
-
         if(checkGoal()){
             g.setColor(deepBlue);
             g.fillRect(100,30,600,390);
             g.setColor(backgroundC);
             g.fillRect(120,50,560,350);
             g.setColor(grey);
-            g.drawString("Congrats, you made it out of the building!",200,200);
-            g.drawString("Press SPACE to continue.",270,300);
+            if(stage==0){
+                g.drawString("Great, now go to the printer to get your work!",180,200);
+                g.drawString("Press SPACE to continue.",270,300);
+            }else if(stage==1){
+                g.drawString("Uh oh, the printer is out of paper!",220,200);
+                g.drawString("Go to the STORAGE room to get paper.",190,240);
+                g.drawString("Press SPACE to continue.",270,300);
+            }else if(stage==2){
+                g.drawString("Great, now put the paper back in the printer!",200,200);
+                g.drawString("Press SPACE to continue.",270,300);
+            }else if(stage==3){
+                g.drawString("Uh oh, the printer is out of ink!",235,200);
+                g.drawString("Go to the Social Office to get ink.",225,240);
+                g.drawString("Press SPACE to continue.",270,300);
+            }else if(stage==4){
+                g.drawString("Great, now put the ink back in the printer!",205,200);
+                g.drawString("Press SPACE to continue.",270,300);
+            }else if(stage==5){
+                g.drawString("You successfully printer your work!",220,200);
+                g.drawString("Go to room 111 to hand in your work!",220,240);
+                g.drawString("Press SPACE to continue.",270,300);
+            }else if(stage==6){
+                g.drawString("Congrats! You handed in your work on time!",180,200);
+                g.drawString("Press SPACE to continue.",270,300);
+                timer.stop();
+            }
         }
-        
+
+        if(failed){
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.drawString("Uh oh, you were too slow!",270,200);
+            g.drawString("Press SPACE to try again.",270,300);
+            timer.stop();
+        }
     }
 
     public void update() {
+        if(secondsPassed>=300){
+            failed=true;
+        }
         cright=true;
         cleft=true;
         cdown=true;
@@ -460,5 +550,19 @@ public class ThirdLevel extends Level{
             reached=true;
         }
         return reached;
+    }
+
+    public void restart(){
+        goalX=1080;
+        goalY=-1000;
+        stage=0;
+        facing=0;
+        instructionsDone=false;
+        playerX=-440;
+        playerY=-1100;
+        mapOpen=false;
+        failed=false;
+        secondsPassed=0;
+        System.out.println("failed");
     }
 }
