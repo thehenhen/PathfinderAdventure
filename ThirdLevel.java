@@ -23,6 +23,7 @@ public class ThirdLevel extends Level{
     Image map;
     Image mapIcon;
     Image[] playerIcons;
+    Image printer;
     ArrayList<Wall> walls;
     ArrayList<AntiWall> antiwalls;
     int facing=1;
@@ -83,6 +84,7 @@ public class ThirdLevel extends Level{
             playerIcons[1] = ImageIO.read(new File("assets/playerDownLeft.png"));
             playerIcons[2] = ImageIO.read(new File("assets/playerUpRight.png"));
             playerIcons[3] = ImageIO.read(new File("assets/playerUpLeft.png"));
+            printer = ImageIO.read(new File("assets/printer.png"));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -92,6 +94,10 @@ public class ThirdLevel extends Level{
         //library
         addRect(-250,-100,600,330);
         addDoor(2,350,60,350,120);
+
+        //room 114
+        addRect(-350,-25,100,180);
+        addDoor(2,-250,5,-250,65);
 
         //hallway over library
         addRect(-430,-700,600,300);
@@ -171,7 +177,12 @@ public class ThirdLevel extends Level{
         addRect(750,-400,600,200);
 
         //end of kitchen hallway
-        addWall(2,1350,-550,1350,-400);
+        addRect(1350,-550,150,350); //extension
+        addDoor(2,1350,-550,1350,-400);
+
+        //STORAGE
+        addRect(1500,-725,250,710);
+        addDoor(2,1500,-330,1500,-270);
 
         //room 101
         addRect(1050,-650,400,100);
@@ -282,6 +293,8 @@ public class ThirdLevel extends Level{
         g.setColor(Color.GREEN);
         g.fillOval(goalX-50-playerX,goalY-50-playerY,100,100);
         g.drawImage(playerIcons[facing],375,225,50,50,null);
+
+        g.drawImage(printer,goalX-735-playerX,goalY-120-playerY,75,75,null); //printer
 
 
         g.setColor(Color.LIGHT_GRAY);
