@@ -7,13 +7,13 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class SecondLevel extends Level{
+public class ThirdLevel extends Level{
     int playerSize;
     boolean right;
     boolean left;
     boolean down;
     boolean up;
-    boolean second;
+    boolean third;
     boolean mapOpen;
     Image map;
     Image mapIcon;
@@ -35,7 +35,7 @@ public class SecondLevel extends Level{
     Color deepBlue = new Color(11, 58, 84);
     Font smallSerifFont = new Font("Serif", Font.PLAIN, 25);
 
-    public SecondLevel() {
+    public ThirdLevel() {
         super();
         playerX = -440;
         playerY = -1100;
@@ -53,7 +53,7 @@ public class SecondLevel extends Level{
         cdown=true;
         cup=true;
 
-        second=false;
+        third=true;
         mapOpen = false;
 
         instructionsDone=false;
@@ -63,7 +63,7 @@ public class SecondLevel extends Level{
         playerIcons = new Image[4];
         
         try {
-            map = ImageIO.read(new File("assets/map2.png"));
+            map = ImageIO.read(new File("assets/map3.png"));
             mapIcon = ImageIO.read(new File("assets/mapIcon.png"));
             playerIcons[0] = ImageIO.read(new File("assets/playerDownRight.png"));
             playerIcons[1] = ImageIO.read(new File("assets/playerDownLeft.png"));
@@ -206,7 +206,7 @@ public class SecondLevel extends Level{
                 instructionsDone=true;
             }
             if(checkGoal()){
-                second=false;
+                third=false;
             }
         }
     }
@@ -279,10 +279,7 @@ public class SecondLevel extends Level{
         if(mapOpen){
             g.drawImage(map,200,30,400,400,null);
         }
-        //System.out.println(playerX+","+playerY);
         g.setFont(smallSerifFont);
-        g.setColor(grey);
-        g.drawString("Goal: Navigate your way out of the building.",20,50);
         if(!instructionsDone){
             g.setColor(deepBlue);
             g.fillRect(100,30,600,390);

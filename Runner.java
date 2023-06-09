@@ -10,6 +10,7 @@ public class Runner extends JFrame implements KeyListener,MouseListener,MouseMot
     Menu menu = new Menu();
     FirstLevel first = new FirstLevel();
     SecondLevel second = new SecondLevel();
+    ThirdLevel third = new ThirdLevel();
 
     public Runner(){
         menu.addKeyListener(this); 
@@ -22,6 +23,8 @@ public class Runner extends JFrame implements KeyListener,MouseListener,MouseMot
             first.keyPressed(e);
         }else if(second.second){
             second.keyPressed(e);
+        }else if(third.third){
+            third.keyPressed(e);
         }
     }
     
@@ -30,6 +33,8 @@ public class Runner extends JFrame implements KeyListener,MouseListener,MouseMot
             first.keyReleased(e); 
         }else if(second.second){
             second.keyReleased(e);
+        }else if(third.third){
+            third.keyReleased(e);
         }
     }
 
@@ -40,6 +45,8 @@ public class Runner extends JFrame implements KeyListener,MouseListener,MouseMot
             first.mouseClicked(e);
         }else if(second.second){
             second.mouseClicked(e);
+        }else if(third.third){
+            third.mouseClicked(e);
         }
     }
     public void mouseEntered(MouseEvent e) {}
@@ -51,6 +58,8 @@ public class Runner extends JFrame implements KeyListener,MouseListener,MouseMot
             first.mouseMoved(e);
         }else if(second.second){
             second.mouseMoved(e);
+        }else if(third.third){
+            third.mouseMoved(e);
         }
     }
     public void mouseDragged(MouseEvent e) {}
@@ -85,6 +94,10 @@ public class Runner extends JFrame implements KeyListener,MouseListener,MouseMot
                 else if(second.second){
                     second.repaint();
                     menu.add(second);
+                    menu.setVisible(true);
+                }else if(third.third){
+                    third.repaint();
+                    menu.add(third);
                     menu.setVisible(true);
                 }
             }
