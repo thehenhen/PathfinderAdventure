@@ -16,7 +16,9 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
     Font largeSerifFont;
     Font smallSerifFont;
     Font smallestSerifFont;
+    Font superSmallF;
     Image map;
+    boolean beatGame;
 
     public Menu(){
         try {
@@ -28,6 +30,8 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
         largeSerifFont = new Font("Serif", Font.PLAIN, 80);
         smallSerifFont = new Font("Serif", Font.PLAIN, 60);
         smallestSerifFont = new Font("Serif", Font.PLAIN, 40);
+        superSmallF = new Font("Serif", Font.PLAIN, 20);
+        beatGame=false;
         addMouseListener(this);
         addMouseMotionListener(this);
     }
@@ -68,6 +72,10 @@ public class Menu extends JFrame implements MouseListener,MouseMotionListener{
             g.setFont(smallestSerifFont);
             g.setColor(Color.yellow);
             g.drawString("PLAY",350,285);
+            if(beatGame){
+                g.setFont(superSmallF);
+                g.drawString("Thanks for playing!",320,230);
+            }
         }
     }
 

@@ -53,7 +53,7 @@ public class SecondLevel extends Level{
         cdown=true;
         cup=true;
 
-        second=false;
+        second=true;
         mapOpen = false;
 
         instructionsDone=false;
@@ -105,19 +105,21 @@ public class SecondLevel extends Level{
         addDoor(1,-225,-1400,-165,-1400); //entrance #1
         
         addWall(1,-450,-1100,60,-1100); //middle split
-        addWall(1,-300,-1325,-53,-1325); //middle of middle split
+        addWall(1,-300,-1325,-55,-1325); //middle of middle split
         addDoor(1,-225,-1325,-165,-1325); //door for middle of middle split
         
         addWall(2,-300,-1400,-300,-1250); //left wall
         addWall(1,-450,-1250,-300,-1250); //door's wall of left wall
         addDoor(1,-450,-1250,-390,-1250); //door of left wall
         
-        addWall(2,-53,-1400,-53,-1160); //right wall
+        addWall(2,-55,-1400,-55,-1100); //right wall
+        addDoor(2,-55,-1170,-55,-1100);
         
-        addRect(-337,-1180,120,80); //room near middle split
-        addDoor(1,-294,-1180,-234,-1180);
+        addRect(-340,-1180,120,80); //room near middle split
+        addDoor(1,-295,-1180,-235,-1180);
         addDoor(1,-320,-1100,-260,-1100);
-        addWall(2,-337,-1100,-337,-820);
+        addWall(2,-340,-1100,-340,-700);
+        addDoor(2,-340,-820,-340,-700);
         
         addRect(-165,-1025,225,325); //big room in #2 space for left block
         addDoor(1,0,-1025,60,-1025);
@@ -279,7 +281,7 @@ public class SecondLevel extends Level{
         if(mapOpen){
             g.drawImage(map,200,30,400,400,null);
         }
-        //System.out.println(playerX+","+playerY);
+        System.out.println(playerX+","+playerY);
         g.setFont(smallSerifFont);
         g.setColor(grey);
         g.drawString("Goal: Navigate your way out of the building.",20,50);
@@ -289,6 +291,7 @@ public class SecondLevel extends Level{
             g.setColor(backgroundC);
             g.fillRect(120,50,560,350);
             g.setColor(grey);
+            g.drawString("Level 2",370,100);
             g.drawString("Uh oh, you were visiting your friend in another",170,140);
             g.drawString("school when you got lost!",270,180);
             g.drawString("Use the map to help you navigate out.",220,220);
@@ -429,5 +432,16 @@ public class SecondLevel extends Level{
             reached=true;
         }
         return reached;
+    }
+
+    public void restart(){
+        goalX=400;
+        goalY=-200;
+        facing=0;
+        instructionsDone=false;
+        playerX=-440;
+        playerY=-1100;
+        mapOpen=false;
+        second=true;
     }
 }

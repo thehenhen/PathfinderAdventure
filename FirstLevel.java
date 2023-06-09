@@ -389,4 +389,15 @@ public class FirstLevel extends Level{
             addWall(1,x1-1,y2,x1+1,y2);
         }
     }
+
+    public void restart(){
+        goalX=690;
+        goalY=-1630;
+        facing=0;
+        instructionsDone=false;
+        playerX=0;
+        playerY=0;
+        mapOpen=false;
+        first=true;
+    }
 }

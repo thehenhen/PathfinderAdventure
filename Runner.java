@@ -101,9 +101,11 @@ public class Runner extends JFrame implements KeyListener,MouseListener,MouseMot
                     menu.setVisible(true);
                 }else{
                     menu.menu=true;
-                    first.first=true;
-                    second.second=true;
-                    third.third=true;
+                    menu.beatGame=true;
+                    menu.repaint();
+                    first.restart();
+                    second.restart();
+                    third.restart();
                 }
             }
         }

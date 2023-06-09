@@ -32,6 +32,7 @@ public class ThirdLevel extends Level{
     int goalX=1080;
     int goalY=-1000;
     boolean failed=false;
+    boolean beatGame=false;
 
     int secondsPassed=0;
     String temp="";
@@ -50,7 +51,6 @@ public class ThirdLevel extends Level{
      * 5: room 114 (place ink in printer and get printed paper) --> 
      * 6: room 111 (hand in paper to teacher)
      */
-
     int stage=0;
     String[] goals;
 
@@ -143,14 +143,15 @@ public class ThirdLevel extends Level{
         addDoor(1,-225,-1400,-165,-1400); //entrance #1
         
         addWall(1,-450,-1100,60,-1100); //middle split
-        addWall(1,-300,-1325,-53,-1325); //middle of middle split
+        addWall(1,-300,-1325,-55,-1325); //middle of middle split
         addDoor(1,-225,-1325,-165,-1325); //door for middle of middle split
         
         addWall(2,-300,-1400,-300,-1250); //left wall
         addWall(1,-450,-1250,-300,-1250); //door's wall of left wall
         addDoor(1,-450,-1250,-390,-1250); //door of left wall
         
-        addWall(2,-53,-1400,-53,-1160); //right wall
+        addWall(2,-55,-1400,-55,-1100); //right wall
+        addDoor(2,-55,-1170,-55,-1100);
         
         addRect(-340,-1180,120,80); //room near middle split
         addDoor(1,-295,-1180,-235,-1180);
@@ -281,8 +282,7 @@ public class ThirdLevel extends Level{
                     goalY=-1540+400;
                     stage++;
                 }else if(stage==6){
-                    third=false;
-                }
+                    third=false;                }
             }
         }
     }
@@ -373,6 +373,7 @@ public class ThirdLevel extends Level{
             g.setColor(backgroundC);
             g.fillRect(120,50,560,350);
             g.setColor(grey);
+            g.drawString("Level 3",370,100);
             g.drawString("Uh oh, you forgot to print your homework at home.",140,140);
             g.drawString("Now you need to use the school printer!",200,180);
             g.drawString("You have 5 minutes to accomplish this task.",180,220);
