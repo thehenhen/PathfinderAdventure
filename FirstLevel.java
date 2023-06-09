@@ -8,32 +8,58 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
- * Purpose: manages functions and displaying of first level
+ * Purpose: FirstLevel class to manage functions of first level
  */
 public class FirstLevel extends Level{
-    private int playerSize;
+    /**
+     * Variables to determine if player is pressing respective buttons
+     */
     private boolean right;
     private boolean left;
     private boolean down;
     private boolean up;
+    /**
+     * Boolean variable to determine if first level should display
+     */
     private boolean first;
+    /**
+     * Boolean variable to determine if map is open
+     */
     private boolean mapOpen;
+    /**
+     * Images to display
+     */
     private Image map;
     private Image mapIcon;
     private Image[] playerIcons;
+    /**
+     * ArrayLists to store walls and antiwalls
+     */
     private ArrayList<Wall> walls;
     private ArrayList<AntiWall> antiwalls;
+    /**
+     * Coords of goal
+     */
     private int goalX=690;
     private int goalY=-1630;
 
+    /**
+     * Boolean variable to determine if instructions are done displaying
+     */
     private boolean instructionsDone;
 
+    /**
+     * Variable to determine which way character is facing
+     */
     private int facing=1;
-    //dr 0
-    //dl 1
-    //ur 2
-    //ul 3
+    //down right 0
+    //down left 1
+    //up right 2
+    //up left 3
 
+    /**
+     * Fonts and colours
+     */
     private Font smallSerifFont = new Font("Serif", Font.PLAIN, 25);
     private Color backgroundC = new Color(227, 215, 182);
     private Color grey = new Color(68, 69, 69);
@@ -49,18 +75,15 @@ public class FirstLevel extends Level{
         mouseX=0;
         mouseY=0;
         playerSize=50;
-
         right=false;
         left=false;
         down=false;
         up=false;
-    
         cright=true; 
         cleft=true;
         cdown=true;
         cup=true;
-
-        first=false;
+        first=true;
         mapOpen = false;
         instructionsDone=false;
         walls = new ArrayList<Wall>();
@@ -149,7 +172,8 @@ public class FirstLevel extends Level{
     }
 
     /**
-     * Purpose: Manages interaction when a key is pressed
+     * Purpose: Handles the key press event.
+     * @param e the KeyEvent object
      */
     public void keyPressed(KeyEvent e) {
         if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && instructionsDone && !checkGoal()){
@@ -174,7 +198,8 @@ public class FirstLevel extends Level{
     }
     
     /**
-     * Purpose: manages interaction when a key is released
+     * Purpose: Handles the key release event.
+     * @param e the KeyEvent object
      */
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
@@ -192,30 +217,31 @@ public class FirstLevel extends Level{
     }
 
     /**
-     * Purpose: manages interaction when a key is typed
-     */
-    public void keyTyped(KeyEvent e) {}
-
-    /**
-     * Purpose: manages interaction when the mouse is clicked
+     * Purpose: Handles the mouse click event.
+     * @param e the MouseEvent object
      */
     public void mouseClicked(MouseEvent e) {
         if(mouseDetect(708,758,57,105)){
             mapOpen=!mapOpen;
         }
     }
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) {}
-    public void mouseReleased(MouseEvent e) {}
+
     /**
-     * Purpose: updates the mouse coordinates when the mouse is moved
+     * Purpose: Handles the mouse move event.
+     * @param e the MouseEvent object
      */
     public void mouseMoved(MouseEvent e) {
         mouseX=e.getX();
         mouseY=e.getY();
     }
+
+    public void keyTyped(KeyEvent e) {}
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {}
     public void mouseDragged(MouseEvent e) {}
+    
     /**
      * Purpose: makes moues detection easier by defining coordinates and borders
      * @param x1 lower limit of mouseX
@@ -228,15 +254,14 @@ public class FirstLevel extends Level{
         return(mouseX>=x1 && mouseX<=x2 && mouseY>=y1 && mouseY<=y2);
     }
     
-
+    /**
+     * Purpose: method to draw to the JPanel
+     * @param g the Graphics object
+     */
     public void paint(Graphics g) {
         update();
-        
-        // BACKGROUND
         g.setColor(backgroundC);
         g.fillRect(0, 0, 800, 500);
-
-        //DRAW STUFF HERE
         for(int i=0;i<walls.size();i++){
             if(walls.get(i)!=null){
                 walls.get(i).display(g,this);
@@ -250,25 +275,19 @@ public class FirstLevel extends Level{
         }
         g.setColor(Color.GREEN);
         g.fillOval(goalX-50-playerX,goalY-50-playerY,100,100);
-        
         g.drawImage(playerIcons[facing],375,225,50,50,null);
-
-
         g.setColor(Color.LIGHT_GRAY);
         if(mouseDetect(708,758,57,105)){
             g.setColor(Color.GRAY);
         }
         g.fillRect(700,25,50,50);
         g.drawImage(mapIcon,700,25,50,50,null);
-        
         g.setFont(smallSerifFont); 
         g.setColor(grey);
         g.drawString("Goal: Make your way to room 106",20,50);
-
         if(mapOpen){
             g.drawImage(map,200,30,400,400,null);
         }
-
         if(!instructionsDone){
             g.setColor(deepBlue);
             g.fillRect(100,30,600,390);
@@ -284,7 +303,6 @@ public class FirstLevel extends Level{
             g.drawString("Use WASD or arrow keys to move.",230,220);
             g.drawString("Press SPACE to start.",300,300);
         }
-        
         if(checkGoal()){
             g.setColor(deepBlue);
             g.fillRect(100,30,600,390);
@@ -296,6 +314,9 @@ public class FirstLevel extends Level{
         }
     }
 
+    /**
+     * Purpose: Updates the variables and conditions within the first level, called every frame
+     */
     public void update() {
         cright=true;
         cleft=true;
@@ -357,35 +378,58 @@ public class FirstLevel extends Level{
         }
     }
 
+    /**
+     * Purpose: Moves the player to the right
+     */
     public void right() {
         playerX += 5;
         if(facing%2==1) facing--;
     }
     
+    /**
+     * Purpose: Moves the player to the left
+     */
     public void left() {
         playerX -= 5;
         if(facing%2==0) facing++;
     }
     
+    /**
+     * Purpose: Moves the player down
+     */
     public void down() {
         playerY += 5;
         if(facing>1) facing-=2;
     }
     
+    /**
+     * Purpose: Moves the player up
+     */
     public void up() {
         playerY -= 5;
         if(facing<2) facing+=2;
     }
 
+    /**
+     * Purpose: Accessor method for playerX
+     * @return playerX
+     */
     public int getPlayerX(){
         return playerX;
     }
 
+    /**
+     * Purpose: Accessor method for playerY
+     * @return playerY
+     */
     public int getPlayerY(){
         return playerY;
     }
 
-
+    /**
+     * Purpose: Checks if the player has reached the goal coordinates
+     * @return if reached goal
+     */
     public boolean checkGoal(){
         boolean reached=false;
         if(Math.abs(playerX+400-goalX)<30 && Math.abs(playerY+250-goalY)<30){
@@ -394,10 +438,25 @@ public class FirstLevel extends Level{
         return reached;
     }
 
+    /**
+     * Purpose: Adds a wall to the walls ArrayList
+     * @param type 1: horizontal, 2: vertical
+     * @param x1 x-coord of first point
+     * @param y1 y-coord of first point
+     * @param x2 x-coord of second point
+     * @param y2 y-coord of second point
+     */
     public void addWall(int type, int x1, int y1, int x2, int y2){
         walls.add(new Wall(type,x1,y1,x2,y2));
     }
 
+    /**
+     * Purpose: Adds walls in the shape of a rectangle to the walls ArrayList
+     * @param x x-coord of top left corner
+     * @param y y-coord of top left corner
+     * @param width width of rectangle
+     * @param height height of rectangle
+     */
     public void addRect(int x,int y,int width,int height){
         addWall(1,x,y,x+width,y);
         addWall(2,x,y,x,y+height);
@@ -405,10 +464,26 @@ public class FirstLevel extends Level{
         addWall(2,x+width,y,x+width,y+height);
     }
 
+    /**
+     * Purpose: Adds an AntiWall
+     * @param type 1: horizontal, 2: vertical
+     * @param x1 x-coord of first point
+     * @param y1 y-coord of first point
+     * @param x2 x-coord of second point
+     * @param y2 y-coord of second point
+     */
     public void addAntiWall(int type, int x1, int y1, int x2, int y2){
         antiwalls.add(new AntiWall(type,x1,y1,x2,y2));
     }
 
+    /**
+     * Purpose: Creates a door by adding and AntiWall and 2 small walls
+     * @param type 1: horizontal, 2: vertical
+     * @param x1 x-coord of first point
+     * @param y1 y-coord of first point
+     * @param x2 x-coord of second point
+     * @param y2 y-coord of second point
+     */
     public void addDoor(int type,int x1,int y1,int x2,int y2){
         addAntiWall(type, x1, y1, x2, y2);
         if(type==1){
@@ -420,6 +495,9 @@ public class FirstLevel extends Level{
         }
     }
 
+    /**
+     * Purpose: Resets the level by resetting all variables 
+     */
     public void restart(){
         goalX=690;
         goalY=-1630;
@@ -431,6 +509,10 @@ public class FirstLevel extends Level{
         first=true;
     }
 
+    /**
+     * Purpose: Accessor method for if the first level should be displayed
+     * @return
+     */
     public boolean getFirst(){
         return first;
     }

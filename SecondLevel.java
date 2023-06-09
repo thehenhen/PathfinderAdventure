@@ -7,34 +7,65 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+/**
+ * Purpose: SecondLevel class to manage functions of the second level
+ */
 public class SecondLevel extends Level{
-    int playerSize;
-    boolean right;
-    boolean left;
-    boolean down;
-    boolean up;
-    boolean second;
-    boolean mapOpen;
-    Image map;
-    Image mapIcon;
-    Image[] playerIcons;
-    ArrayList<Wall> walls;
-    ArrayList<AntiWall> antiwalls;
-    int facing=1;
-    //dr 0
-    //dl 1
-    //ur 2
-    //ul 3
+    /**
+     * Variables to determine if player is pressing respective buttons
+     */
+    private boolean right;
+    private boolean left;
+    private boolean down;
+    private boolean up;
+    /**
+     * Boolean variable to determine if first level should display
+     */
+    private boolean second;
+    /**
+     * Boolean variable to determine if map is open
+     */
+    private boolean mapOpen;
+    /**
+     * Images to display
+     */
+    private Image map;
+    private Image mapIcon;
+    private Image[] playerIcons;
+    /**
+     * ArrayLists to store walls and antiwalls
+     */
+    private ArrayList<Wall> walls;
+    private ArrayList<AntiWall> antiwalls;
+    /**
+     * Boolean variable to determine if instructions are done displaying
+     */
+    private boolean instructionsDone;
+    /**
+     * Variable to determine which way character is facing
+     */
+    private int facing=1;
+    //down right 0
+    //down left 1
+    //up right 2
+    //up left 3
+    /**
+     * Coords of goal
+     */
+    private int goalX=400;
+    private int goalY=200;
 
-    boolean instructionsDone;
-    int goalX=400;
-    int goalY=200;
+    /**
+     * Fonts and colours
+     */
+    private Color backgroundC = new Color(227, 215, 182);
+    private Color grey = new Color(68, 69, 69);
+    private Color deepBlue = new Color(11, 58, 84);
+    private Font smallSerifFont = new Font("Serif", Font.PLAIN, 25);
 
-    Color backgroundC = new Color(227, 215, 182);
-    Color grey = new Color(68, 69, 69);
-    Color deepBlue = new Color(11, 58, 84);
-    Font smallSerifFont = new Font("Serif", Font.PLAIN, 25);
-
+    /**
+     * Purpose: Constructs a SecondLevel object
+     */
     public SecondLevel() {
         super();
         playerX = -440;
@@ -42,26 +73,20 @@ public class SecondLevel extends Level{
         mouseX=0;
         mouseY=0;
         playerSize=50;
-
         right=false;
         left=false;
         down=false;
         up=false;
-    
         cright=true; 
         cleft=true;
         cdown=true;
         cup=true;
-
         second=true;
         mapOpen = false;
-
         instructionsDone=false;
-
         walls = new ArrayList<Wall>();
         antiwalls = new ArrayList<AntiWall>();
         playerIcons = new Image[4];
-        
         try {
             map = ImageIO.read(new File("assets/map2.png"));
             mapIcon = ImageIO.read(new File("assets/mapIcon.png"));
@@ -72,7 +97,6 @@ public class SecondLevel extends Level{
         }catch (Exception e){
             e.printStackTrace();
         }
-
         //walls
         if(true){
         //library
@@ -190,6 +214,10 @@ public class SecondLevel extends Level{
         }
     }
 
+    /**
+     * Purpose: Handles the key press event.
+     * @param e the KeyEvent object
+     */
     public void keyPressed(KeyEvent e) {
         if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && instructionsDone && !checkGoal()){
             right=true;
@@ -213,6 +241,10 @@ public class SecondLevel extends Level{
         }
     }
     
+    /**
+     * Purpose: Handles the key release event.
+     * @param e the KeyEvent object
+     */
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
             right=false;
@@ -227,35 +259,54 @@ public class SecondLevel extends Level{
             up=false;
         }
     }
-    public void keyTyped(KeyEvent e) {}
-
+    
+    /**
+     * Purpose: Handles the mouse click event.
+     * @param e the MouseEvent object
+     */
     public void mouseClicked(MouseEvent e) {
         if(mouseDetect(708,758,57,105)){
             mapOpen=!mapOpen;
         }
     }
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) {}
-    public void mouseReleased(MouseEvent e) {}
+    
+    /**
+     * Purpose: Handles the mouse move event.
+     * @param e the MouseEvent object
+     */
     public void mouseMoved(MouseEvent e) {
         mouseX=e.getX();
         mouseY=e.getY();
     }
-    public void mouseDragged(MouseEvent e) {}
+
+    /**
+     * Purpose: makes mouse detection easier by defining coordinates and borders
+     * @param x1 lower limit of mouseX
+     * @param x2 upper limit of mouseX
+     * @param y1 lower limit of mouseY
+     * @param y2 upper limit of mouseY
+     * @return if the mouse is within the defined borders
+     */
     public boolean mouseDetect(int x1,int x2,int y1,int y2){
         return(mouseX>=x1 && mouseX<=x2 && mouseY>=y1 && mouseY<=y2);
     }
-    
 
+    //Unused methods
+    public void keyTyped(KeyEvent e) {}
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {}
+    public void mouseDragged(MouseEvent e) {}
+    
+    /**
+     * Purpose: method to draw to the JPanel
+     * @param g the Graphics object
+     */
     public void paint(Graphics g) {
         update();
-        
-        // BACKGROUND
         g.setColor(backgroundC);
         g.fillRect(0, 0, 800, 500);
-
-        //DRAW STUFF HERE
         for(int i=0;i<walls.size();i++){
             if(walls.get(i)!=null){
                 walls.get(i).display(g,this);
@@ -270,8 +321,6 @@ public class SecondLevel extends Level{
         g.setColor(Color.GREEN);
         g.fillOval(goalX-50-playerX,goalY-50-playerY,100,100);
         g.drawImage(playerIcons[facing],375,225,50,50,null);
-
-
         g.setColor(Color.LIGHT_GRAY);
         if(mouseDetect(708,758,57,105)){
             g.setColor(Color.GRAY);
@@ -298,7 +347,6 @@ public class SecondLevel extends Level{
             g.drawString("Use WASD or arrow keys to move.",230,260);
             g.drawString("Press SPACE to start.",300,300);
         }
-
         if(checkGoal()){
             g.setColor(deepBlue);
             g.fillRect(100,30,600,390);
@@ -308,9 +356,11 @@ public class SecondLevel extends Level{
             g.drawString("Congrats, you made it out of the building!",200,200);
             g.drawString("Press SPACE to continue.",270,300);
         }
-        
     }
 
+    /**
+     * Purpose: Updates the variables and conditions within the first level, called every frame
+     */
     public void update() {
         cright=true;
         cleft=true;
@@ -372,38 +422,73 @@ public class SecondLevel extends Level{
         }
     }
 
+    /**
+     * Purpose: Moves the player to the right
+     */
     public void right() {
         playerX += 5;
         if(facing%2==1) facing--;
     }
     
+    /**
+     * Purpose: Moves the player to the left
+     */
     public void left() {
         playerX -= 5;
         if(facing%2==0) facing++;
     }
     
+    /**
+     * Purpose: Moves the player to the down
+     */
     public void down() {
         playerY += 5;
         if(facing>1) facing-=2;
     }
     
+    /**
+     * Purpose: Moves the player to the up
+     */
     public void up() {
         playerY -= 5;
         if(facing<2) facing+=2;
     }
 
+    /**
+     * Purpose: Accessor method for playerX
+     * @return playerX
+     */
     public int getPlayerX(){
         return playerX;
     }
 
+    /**
+     * Purpose: Accessor method for playerY
+     * @return playerY
+     */
     public int getPlayerY(){
         return playerY;
     }
 
+    /**
+     * Purpose: Adds a wall to the walls ArrayList
+     * @param type 1: horizontal, 2: vertical
+     * @param x1 x-coord of first point
+     * @param y1 y-coord of first point
+     * @param x2 x-coord of second point
+     * @param y2 y-coord of second point
+     */
     public void addWall(int type, int x1, int y1, int x2, int y2){
         walls.add(new Wall(type,x1,y1,x2,y2));
     }
 
+    /**
+     * Purpose: Adds walls in the shape of a rectangle to the walls ArrayList
+     * @param x x-coord of top left corner
+     * @param y y-coord of top left corner
+     * @param width width of rectangle
+     * @param height height of rectangle
+     */
     public void addRect(int x,int y,int width,int height){
         addWall(1,x,y,x+width,y);
         addWall(2,x,y,x,y+height);
@@ -411,10 +496,26 @@ public class SecondLevel extends Level{
         addWall(2,x+width,y,x+width,y+height);
     }
 
+    /**
+     * Purpose: Adds an AntiWall
+     * @param type 1: horizontal, 2: vertical
+     * @param x1 x-coord of first point
+     * @param y1 y-coord of first point
+     * @param x2 x-coord of second point
+     * @param y2 y-coord of second point
+     */
     public void addAntiWall(int type, int x1, int y1, int x2, int y2){
         antiwalls.add(new AntiWall(type,x1,y1,x2,y2));
     }
 
+    /**
+     * Purpose: Creates a door by adding and AntiWall and 2 small walls
+     * @param type 1: horizontal, 2: vertical
+     * @param x1 x-coord of first point
+     * @param y1 y-coord of first point
+     * @param x2 x-coord of second point
+     * @param y2 y-coord of second point
+     */
     public void addDoor(int type,int x1,int y1,int x2,int y2){
         addAntiWall(type, x1, y1, x2, y2);
         if(type==1){
@@ -426,6 +527,10 @@ public class SecondLevel extends Level{
         }
     }
 
+    /**
+     * Purpose: Checks if the player has reached the goal coordinates
+     * @return if reached goal
+     */
     public boolean checkGoal(){
         boolean reached=false;
         if(Math.abs(playerX+400-goalX)<30 && Math.abs(playerY+250-goalY)<30){
@@ -434,6 +539,9 @@ public class SecondLevel extends Level{
         return reached;
     }
 
+    /**
+     * Purpose: Resets the level by resetting all variables 
+     */
     public void restart(){
         goalX=400;
         goalY=-200;
@@ -443,5 +551,13 @@ public class SecondLevel extends Level{
         playerY=-1100;
         mapOpen=false;
         second=true;
+    }
+
+    /**
+     * Purpose: Accessor method for if the second level should be displayed
+     * @return
+     */
+    public boolean getSecond(){
+        return second;
     }
 }

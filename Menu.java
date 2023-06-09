@@ -9,24 +9,48 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
 
 /**
- * The Menu class represents the game menu that extends JFrame and implements MouseListener and MouseMotionListener interfaces.
- * It handles mouse events and displays the menu graphics.
+ * Purpose: Menu class that displays the menu
  */
 public class Menu extends JFrame implements MouseListener, MouseMotionListener {
+    /**
+     * Background image
+     */
     private Image image;
+    /**
+     * x-coordinate of mouse
+     */
     private int mouseX = 0;
+    /**
+     * y-coordinate of mouse
+     */
     private int mouseY = 0;
+    /**
+     * Boolean variable that represents if menu should display
+     */
     private boolean menu = true;
+    /**
+     * Large font
+     */
     private Font largeSerifFont;
+    /**
+     * Small font
+     */
     private Font smallSerifFont;
+    /**
+     * Smaller font
+     */
     private Font smallestSerifFont;
+    /**
+     * Smallest font
+     */
     private Font superSmallF;
+    /**
+     * Boolean variable that represents if player has beat game
+     */
     private boolean beatGame;
 
     /**
-     * Constructs a Menu object.
-     * Loads the necessary images and initializes fonts.
-     * Adds mouse listeners to the frame.
+     * Purpose: Constructs a Menu object
      */
     public Menu() {
         try {
@@ -44,10 +68,8 @@ public class Menu extends JFrame implements MouseListener, MouseMotionListener {
     }
 
     /**
-     * Handles the mouse click event.
-     * Updates the mouse coordinates and checks if the play button was clicked to start the game.
-     *
-     * @param e the MouseEvent object representing the mouse click event
+     * Purpose: Handles the mouse click event.
+     * @param e the MouseEvent object
      */
     public void mouseClicked(MouseEvent e) {
         mouseX = e.getX();
@@ -57,73 +79,34 @@ public class Menu extends JFrame implements MouseListener, MouseMotionListener {
         }
     }
 
-    /**
-     * Handles the mouse enter event.
-     *
-     * @param e the MouseEvent object representing the mouse enter event
-     */
-    public void mouseEntered(MouseEvent e) {
-        // Not used in this implementation
-    }
+
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {}
 
     /**
-     * Handles the mouse exit event.
-     *
-     * @param e the MouseEvent object representing the mouse exit event
-     */
-    public void mouseExited(MouseEvent e) {    }
-
-    /**
-     * Handles the mouse press event.
-     *
-     * @param e the MouseEvent object representing the mouse press event
-     */
-    public void mousePressed(MouseEvent e) {    }
-
-    /**
-     * Handles the mouse release event.
-     *
-     * @param e the MouseEvent object representing the mouse release event
-     */
-    public void mouseReleased(MouseEvent e) {    }
-
-    /**
-     * Handles the mouse move event.
+     * Purpose: Handles the mouse move event.
      * Updates the mouse coordinates.
-     *
-     * @param e the MouseEvent object representing the mouse move event
+     * @param e the MouseEvent object
      */
     public void mouseMoved(MouseEvent e) {
         mouseX = e.getX();
         mouseY = e.getY();
     }
 
-    /**
-     * Handles the mouse drag event.
-     *
-     * @param e the MouseEvent object representing the mouse drag event
-     */
-    public void mouseDragged(MouseEvent e) {
-        // Not used in this implementation
-    }
+
+    public void mouseDragged(MouseEvent e) {}
 
     /**
-     * Overrides the paint method to draw the menu graphics.
-     *
+     * Purpose: method to draw to the JPanel
      * @param g the Graphics object
      */
-    @Override
     public void paint(Graphics g) {
         if (menu) {
-            update();
-
-            // BACKGROUND
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, 800, 500);
-
-            // DRAW STUFF HERE
             g.drawImage(image, 0, 0, 800, 500, null);
-
             g.setFont(largeSerifFont);
             g.setColor(Color.orange);
             g.drawString("PATHFINDER", 150, 150);
@@ -140,23 +123,33 @@ public class Menu extends JFrame implements MouseListener, MouseMotionListener {
     }
 
     /**
-     * Updates the menu.
-     * This method can be used to implement any menu-related updates.
+     * Purpose: Accessor method that returns if menu should display
+     * @return menu
      */
-    public void update() {    }
-
     public boolean getMenu(){
         return menu;
     }
 
+    /**
+     * Purpose: Mutator method that sets the menu variable
+     * @param set var to set menu to
+     */
     public void setMenu(boolean set){
         menu=set;
     }
 
+    /**
+     * Purpose: Accessor method that returns if player has beat game
+     * @return beatGame
+     */
     public boolean getBeat(){
         return beatGame;
     }
 
+    /**
+     * Purpose: Mutator method that sets the beatGame variable
+     * @param set var tp set neatGame to
+     */
     public void setBeat(boolean set){
         beatGame=set;
     }
