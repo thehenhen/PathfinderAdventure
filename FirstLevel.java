@@ -31,6 +31,8 @@ public class FirstLevel extends Level{
      */
     private Image map;
     private Image mapIcon;
+    private Image bgInst;
+    private Image goalReachImage;
     private Image[] playerIcons;
     /**
      * ArrayLists to store walls and antiwalls
@@ -66,6 +68,11 @@ public class FirstLevel extends Level{
     private Color deepBlue = new Color(11, 58, 84);
 
     /**
+     * Index to determine which scene of level 1 we are on
+     */
+    private int index;
+
+    /**
      * Purpose: Constructs the FirstLevel object
      */
     public FirstLevel() {
@@ -89,8 +96,11 @@ public class FirstLevel extends Level{
         walls = new ArrayList<Wall>();
         antiwalls = new ArrayList<AntiWall>();
         playerIcons = new Image[4];
+        index = 0;
         try {
+            bgInst = ImageIO.read(new File("assets/background.jpg"));
             map = ImageIO.read(new File("assets/map1.png"));
+            goalReachImage = ImageIO.read(new File("assets/goalReach.png"));
             mapIcon = ImageIO.read(new File("assets/mapIcon.png"));
             playerIcons[0] = ImageIO.read(new File("assets/playerDownRight.png"));
             playerIcons[1] = ImageIO.read(new File("assets/playerDownLeft.png"));
@@ -98,76 +108,6 @@ public class FirstLevel extends Level{
             playerIcons[3] = ImageIO.read(new File("assets/playerUpLeft.png"));
         }catch (Exception e){
             e.printStackTrace();
-        }
-        if(true){
-        //library
-        addRect(-250,-100,600,330);
-        addDoor(2,350,60,350,120);
-
-        //office
-        addRect(170,-400,180,300);
-        addDoor(2,350,-280,350,-220);
-
-        //caf
-        addRect(450,-200,300,370);
-        addDoor(1,470,-200,530,-200);
-        addDoor(1,660,-200,730,-200);
-
-        //big left wall
-        addWall(2,170,-1400,170,-400);
-
-        //business rooms
-        addRect(60,-1000,110,300);
-        addRect(60,-1050,110,50);
-        addRect(60,-1250,110,200);
-
-        //center block (gym)
-        addRect(320,-1400,430,850);
-        addWall(1,320,-1300,750,-1300);
-        addDoor(1,505,-1300,565,-1300);
-        addDoor(2,320,-800,320,-740);
-
-        addRect(320,-650,220,100);
-        addDoor(1,400,-550,460,-550);
-
-        addRect(540,-650,105,100);
-        addRect(645,-650,105,100);
-
-
-        //kitchen
-        addRect(750,-400,600,200);
-
-        //end of kitchen hallway
-        addWall(2,1350,-550,1350,-400);
-
-        //room 101
-        addRect(1050,-650,400,100);
-
-        //room 102
-        addRect(900,-900,200,350);
-        addDoor(2,1100,-650,1100,-550);
-
-        //room 103
-        addRect(900,-1250,250,350);
-
-        //room 104
-        addRect(900,-1500,250,250);
-
-        //top left walls
-        addWall(1,0,-1400,170,-1400);
-        addWall(2,0,-1550,0,-1400);
-
-        //room 107
-        addRect(-30,-1700,500,150);
-
-        //room 106
-        addRect(470,-1700,300,150);
-        addDoor(1,540,-1550,600,-1550);
-
-        
-
-        //room 105
-        addRect(770,-1700,380,200);
         }
     }
 
@@ -187,6 +127,9 @@ public class FirstLevel extends Level{
         }
         if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && instructionsDone && !checkGoal()){
             up=true;
+        }
+        if (index<3 && e.getKeyCode() == KeyEvent.VK_ENTER){
+            index++;
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
             if(checkGoal()){
@@ -260,6 +203,55 @@ public class FirstLevel extends Level{
      */
     public void paint(Graphics g) {
         update();
+        if(index==0){
+            g.drawImage(bgInst,0,0,800,500,null);
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.setFont(smallSerifFont);
+            g.drawString("Welcome to Pathfinder Adventure!",130,80);
+            g.drawString("In this game, you will learn how to navigate new",130,130);
+            g.drawString("environments, such as school.", 130, 155);
+            g.setFont(new Font("Serif", Font.PLAIN, 20));
+            g.drawString("Press ENTER to continue...",450,390);
+        }
+        if(index==1){
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(Color.LIGHT_GRAY);
+            g.fillRect(700,25,50,50);
+            g.setColor(grey);
+            g.setFont(smallSerifFont);
+            g.drawString("Use the map to help you navigate.",240,180);
+            g.drawLine(590,170,650,120);
+            g.drawLine(635,125,650,120);
+            g.drawLine(645,135,650,120);
+            g.drawImage(mapIcon,700,25,50,50,null);
+            g.drawString("Use WASD or arrow keys to move.",230,220);
+            g.setFont(new Font("Serif", Font.PLAIN, 20));
+            g.drawString("Press ENTER to continue...",450,390);
+        }
+        if(index==2){
+            g.drawImage(bgInst,0,0,800,500,null);
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.setFont(smallSerifFont);
+            g.drawString("When you approach your goal, you will notice that it",130,80);
+            g.drawString("is outlined in a green circle.",130,105);
+            g.drawImage(goalReachImage,130,130,273,123,null);
+            g.drawString("Simply move your character inside of the green circle",130,270);
+            g.drawString("and follow the prompt.",130,295);
+            g.setFont(new Font("Serif", Font.PLAIN, 20));
+            g.drawString("Press ENTER to continue...",450,390);
+        }
+        if(index==3){
         g.setColor(backgroundC);
         g.fillRect(0, 0, 800, 500);
         for(int i=0;i<walls.size();i++){
@@ -282,7 +274,7 @@ public class FirstLevel extends Level{
         }
         g.fillRect(700,25,50,50);
         g.drawImage(mapIcon,700,25,50,50,null);
-        g.setFont(smallSerifFont); 
+        g.setFont(smallSerifFont);
         g.setColor(grey);
         g.drawString("Goal: Make your way to room 106",20,50);
         if(mapOpen){
@@ -296,11 +288,6 @@ public class FirstLevel extends Level{
             g.setColor(grey);
             g.drawString("Welcome to school!",300,100);
             g.drawString("Your first class is in room 106.",255,140);
-            g.drawString("Use the map to help you navigate.",240,180);
-            g.drawLine(590,170,650,120);
-            g.drawLine(635,125,650,120);
-            g.drawLine(645,135,650,120);
-            g.drawString("Use WASD or arrow keys to move.",230,220);
             g.drawString("Press SPACE to start.",300,300);
         }
         if(checkGoal()){
@@ -311,6 +298,73 @@ public class FirstLevel extends Level{
             g.setColor(grey);
             g.drawString("Congrats, you made it to class!",240,200);
             g.drawString("Press SPACE to continue.",270,300);
+        }
+            //library
+            addRect(-250,-100,600,330);
+            addDoor(2,350,60,350,120);
+    
+            //office
+            addRect(170,-400,180,300);
+            addDoor(2,350,-280,350,-220);
+    
+            //caf
+            addRect(450,-200,300,370);
+            addDoor(1,470,-200,530,-200);
+            addDoor(1,660,-200,730,-200);
+    
+            //big left wall
+            addWall(2,170,-1400,170,-400);
+    
+            //business rooms
+            addRect(60,-1000,110,300);
+            addRect(60,-1050,110,50);
+            addRect(60,-1250,110,200);
+    
+            //center block (gym)
+            addRect(320,-1400,430,850);
+            addWall(1,320,-1300,750,-1300);
+            addDoor(1,505,-1300,565,-1300);
+            addDoor(2,320,-800,320,-740);
+    
+            addRect(320,-650,220,100);
+            addDoor(1,400,-550,460,-550);
+    
+            addRect(540,-650,105,100);
+            addRect(645,-650,105,100);
+    
+    
+            //kitchen
+            addRect(750,-400,600,200);
+    
+            //end of kitchen hallway
+            addWall(2,1350,-550,1350,-400);
+    
+            //room 101
+            addRect(1050,-650,400,100);
+    
+            //room 102
+            addRect(900,-900,200,350);
+            addDoor(2,1100,-650,1100,-550);
+    
+            //room 103
+            addRect(900,-1250,250,350);
+    
+            //room 104
+            addRect(900,-1500,250,250);
+    
+            //top left walls
+            addWall(1,0,-1400,170,-1400);
+            addWall(2,0,-1550,0,-1400);
+    
+            //room 107
+            addRect(-30,-1700,500,150);
+    
+            //room 106
+            addRect(470,-1700,300,150);
+            addDoor(1,540,-1550,600,-1550);
+    
+            //room 105
+            addRect(770,-1700,380,200);
         }
     }
 
