@@ -32,6 +32,8 @@ public class ThirdLevel extends Level{
     private Image[] playerIcons;
     private Image printer;
     private Image computer;
+    private Image ink;
+    private Image paper;
     /**
      * ArrayLists to store walls and antiwalls
      */
@@ -145,6 +147,8 @@ public class ThirdLevel extends Level{
             playerIcons[3] = ImageIO.read(new File("assets/playerUpLeft.png"));
             printer = ImageIO.read(new File("assets/printer.png"));
             computer = ImageIO.read(new File("assets/computer.png"));
+            ink = ImageIO.read(new File("assets/ink.png"));
+            paper = ImageIO.read(new File("assets/paper.png"));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -412,9 +416,19 @@ public class ThirdLevel extends Level{
         }
         g.setColor(Color.GREEN);
         g.fillOval(goalX-50-playerX,goalY-50-playerY,100,100);
-        g.drawImage(playerIcons[facing],375,225,50,50,null);
         g.drawImage(printer,-300-playerX-40,110-playerY-40,75,75,null); //printer
-        g.drawImage(computer,1080-playerX-100,-1000-playerY-50,null);
+        g.drawImage(computer,1080-playerX-100,-1000-playerY-50,null); //computer
+        g.drawImage(ink,-20+400-playerX-25,-1600+250-playerY-25,null); //ink
+        g.drawImage(paper,1220+400-playerX-15,-880+250-playerY-12,null); //paper
+        if(stage>=3){
+            g.setColor(backgroundC);
+            g.fillRect(1220+400-playerX-50,-880+250-playerY-50,100,100); //paper remove
+        }
+        if(stage>=5){
+            g.setColor(backgroundC);
+            g.fillRect(-20+400-playerX-50,-1600+250-playerY-49,100,99); //ink remove
+        }
+        g.drawImage(playerIcons[facing],375,225,50,50,null); //player
         g.setColor(Color.LIGHT_GRAY);
         if(mouseDetect(708,758,57,105)){
             g.setColor(Color.GRAY);
