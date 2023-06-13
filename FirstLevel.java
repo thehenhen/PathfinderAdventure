@@ -31,10 +31,21 @@ public class FirstLevel extends JPanel{
      */
     private int index;
 
+    /**
+     * Start the level
+     */
     private boolean first;
 
+    /**
+     * Detect mouse coordinates
+     */
     private int mouseX;
     private int mouseY;
+
+    /**
+     * Detect wrong answer
+     */
+    private boolean wrong;
 
     /**
      * Purpose: Constructs the FirstLevel object
@@ -65,8 +76,14 @@ public class FirstLevel extends JPanel{
      * @param e the KeyEvent object
      */
     public void keyPressed(KeyEvent e) {
-        if (index<4 && e.getKeyCode() == KeyEvent.VK_ENTER){
-            index++;
+        if (index<7 && e.getKeyCode() == KeyEvent.VK_ENTER){
+            if(index<4){
+                index++;
+            }
+            else if(index==4 && !wrong){
+                index++;
+                wrong=true;
+            }
         }
     }
     
@@ -81,11 +98,23 @@ public class FirstLevel extends JPanel{
      * @param e the MouseEvent object
      */
     public void mouseClicked(MouseEvent e) {
-        if(mouseDetect(150,400,200,250)){
-            System.out.println("HELLO");
+        /*g.drawRect(150,150,250,100);
+            g.drawRect(150,250,250,100);
+            g.drawRect(400,150,250,100);
+            g.drawRect(400,250,250,100);*/
+        if(index==4){
+        if(mouseDetect(150,400,150,250)){
+            wrong=false;
         }
-        if(mouseDetect(400,650,200,250)){
-            System.out.println("HILLO");
+        if(mouseDetect(150,400,250,350)){
+            wrong=true;
+        }
+        if(mouseDetect(400,650,150,250)){
+            wrong=true;
+        }
+        if(mouseDetect(400,650,250,350)){
+            wrong=true;
+        }
         }
     }
 
@@ -190,17 +219,88 @@ public class FirstLevel extends JPanel{
             g.setFont(smallSerifFont);
             g.drawString("What is the first thing you do when",150,100);
             g.drawString("navigating a new environment?",150,130);
-            g.fillRect(120,50,560,350);
-
-            g.fillRect(150,150,250,100);
-            g.fillRect(150,250,250,100);
-            g.fillRect(400,150,250,100);
-            g.fillRect(400,250,250,100);
+            g.drawRect(120,50,560,350);
+            g.drawRect(150,150,250,100);
+            g.drawRect(150,250,250,100);
+            g.drawRect(400,150,250,100);
+            g.drawRect(400,250,250,100);
             g.drawString("Open map",160,200);
             g.drawString("Wander aimlessly",410,200);
             g.drawString("Leave the building",160,300);
             g.drawString("Panic and scream",410,300);
             g.drawString(mouseX+","+mouseY,mouseX,mouseY);
+        }
+        if(index==5){
+            g.drawImage(bgInst,0,0,800,500,null);
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.setFont(smallSerifFont);
+            g.drawString("What is the first thing you do when",150,100);
+            g.drawString("navigating a new environment?",150,130);
+            g.drawRect(120,50,560,350);
+            g.drawRect(150,150,250,100);
+            g.drawRect(150,250,250,100);
+            g.drawRect(400,150,250,100);
+            g.drawRect(400,250,250,100);
+            g.drawString("Open map",160,200);
+            g.drawString("Wander aimlessly",410,200);
+            g.drawString("Leave the building",160,300);
+            g.drawString("Panic and scream",410,300);
+            //g.drawString(mouseX+","+mouseY,mouseX,mouseY);
+        }
+        if(index==6){
+            g.drawImage(bgInst,0,0,800,500,null);
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.setFont(smallSerifFont);
+            g.drawString("What is the first thing you do when",150,100);
+            g.drawString("navigating a new environment?",150,130);
+            g.drawRect(120,50,560,350);
+            g.drawRect(150,150,250,100);
+            g.drawRect(150,250,250,100);
+            g.drawRect(400,150,250,100);
+            g.drawRect(400,250,250,100);
+            g.drawString("Open map",160,200);
+            g.drawString("Wander aimlessly",410,200);
+            g.drawString("Leave the building",160,300);
+            g.drawString("Panic and scream",410,300);
+            //g.drawString(mouseX+","+mouseY,mouseX,mouseY);
+        }
+        if(index==7){
+            g.drawImage(bgInst,0,0,800,500,null);
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.setFont(smallSerifFont);
+            g.drawString("What is the first thing you do when",150,100);
+            g.drawString("navigating a new environment?",150,130);
+            g.drawRect(120,50,560,350);
+            g.drawRect(150,150,250,100);
+            g.drawRect(150,250,250,100);
+            g.drawRect(400,150,250,100);
+            g.drawRect(400,250,250,100);
+            g.drawString("Open map",160,200);
+            g.drawString("Wander aimlessly",410,200);
+            g.drawString("Leave the building",160,300);
+            g.drawString("Panic and scream",410,300);
+            //g.drawString(mouseX+","+mouseY,mouseX,mouseY);
+        }
+        if(index>=4){
+            if(wrong){
+                g.drawString("Incorrect. Try Again!",50,400);
+            }
+            if(!wrong){
+                g.setFont(new Font("Serif", Font.PLAIN, 20));
+                g.drawString("Press ENTER to continue...",450,390);
+            }
         }
     }
 
