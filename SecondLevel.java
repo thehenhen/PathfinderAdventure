@@ -2,9 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.imageio.ImageIO;
 import java.io.*;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
@@ -64,6 +61,11 @@ public class SecondLevel extends Level{
     private Font smallSerifFont = new Font("Serif", Font.PLAIN, 25);
 
     /**
+     * Index to determine which scene of level 1 we are on
+     */
+    private int index;
+
+    /**
      * Purpose: Constructs a SecondLevel object
      */
     public SecondLevel() {
@@ -87,6 +89,7 @@ public class SecondLevel extends Level{
         walls = new ArrayList<Wall>();
         antiwalls = new ArrayList<AntiWall>();
         playerIcons = new Image[4];
+        index = 0;
         try {
             map = ImageIO.read(new File("assets/map2.png"));
             mapIcon = ImageIO.read(new File("assets/mapIcon.png"));
@@ -97,6 +100,115 @@ public class SecondLevel extends Level{
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Purpose: Handles the key press event.
+     * @param e the KeyEvent object
+     */
+    public void keyPressed(KeyEvent e) {
+        if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && instructionsDone && !checkGoal()){
+            right=true;
+        }
+        if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) && instructionsDone && !checkGoal()){
+            left=true;
+        }  
+        if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) && instructionsDone && !checkGoal()){
+            down=true;
+        }
+        if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && instructionsDone && !checkGoal()){
+            up=true;
+        }
+        if (index<1 && e.getKeyCode() == KeyEvent.VK_ENTER){
+            index++;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            if(!instructionsDone){
+                instructionsDone=true;
+            }
+            if(checkGoal()){
+                index=0;
+                second=false;
+            }
+        }
+    }
+    
+    /**
+     * Purpose: Handles the key release event.
+     * @param e the KeyEvent object
+     */
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
+            right=false;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
+            left=false;
+        }  
+        if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
+            down=false;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
+            up=false;
+        }
+    }
+    
+    /**
+     * Purpose: Handles the mouse click event.
+     * @param e the MouseEvent object
+     */
+    public void mouseClicked(MouseEvent e) {
+        if(mouseDetect(708,758,57,105)){
+            mapOpen=!mapOpen;
+        }
+    }
+    
+    /**
+     * Purpose: Handles the mouse move event.
+     * @param e the MouseEvent object
+     */
+    public void mouseMoved(MouseEvent e) {
+        mouseX=e.getX();
+        mouseY=e.getY();
+    }
+
+    /**
+     * Purpose: makes mouse detection easier by defining coordinates and borders
+     * @param x1 lower limit of mouseX
+     * @param x2 upper limit of mouseX
+     * @param y1 lower limit of mouseY
+     * @param y2 upper limit of mouseY
+     * @return if the mouse is within the defined borders
+     */
+    public boolean mouseDetect(int x1,int x2,int y1,int y2){
+        return(mouseX>=x1 && mouseX<=x2 && mouseY>=y1 && mouseY<=y2);
+    }
+
+    //Unused methods
+    public void keyTyped(KeyEvent e) {}
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {}
+    public void mouseDragged(MouseEvent e) {}
+    
+    /**
+     * Purpose: method to draw to the JPanel
+     * @param g the Graphics object
+     */
+    public void paint(Graphics g) {
+        update();
+
+        if(index==0){
+            g.setColor(Color.BLACK);
+            g.fillRect(0,0,800,500);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Serif", Font.PLAIN, 50));
+            g.drawString("LEVEL TWO",250,225);
+            g.setFont(new Font("Serif", Font.PLAIN, 20));
+            g.drawString("Press ENTER to continue...",550,450);
+        }
+
+        if(index==1){
         //walls
         if(true){
         //library
@@ -212,99 +324,6 @@ public class SecondLevel extends Level{
         //room 105
         addRect(770,-1700,380,200);
         }
-    }
-
-    /**
-     * Purpose: Handles the key press event.
-     * @param e the KeyEvent object
-     */
-    public void keyPressed(KeyEvent e) {
-        if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && instructionsDone && !checkGoal()){
-            right=true;
-        }
-        if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) && instructionsDone && !checkGoal()){
-            left=true;
-        }  
-        if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) && instructionsDone && !checkGoal()){
-            down=true;
-        }
-        if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && instructionsDone && !checkGoal()){
-            up=true;
-        }
-        if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            if(!instructionsDone){
-                instructionsDone=true;
-            }
-            if(checkGoal()){
-                second=false;
-            }
-        }
-    }
-    
-    /**
-     * Purpose: Handles the key release event.
-     * @param e the KeyEvent object
-     */
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
-            right=false;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-            left=false;
-        }  
-        if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
-            down=false;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-            up=false;
-        }
-    }
-    
-    /**
-     * Purpose: Handles the mouse click event.
-     * @param e the MouseEvent object
-     */
-    public void mouseClicked(MouseEvent e) {
-        if(mouseDetect(708,758,57,105)){
-            mapOpen=!mapOpen;
-        }
-    }
-    
-    /**
-     * Purpose: Handles the mouse move event.
-     * @param e the MouseEvent object
-     */
-    public void mouseMoved(MouseEvent e) {
-        mouseX=e.getX();
-        mouseY=e.getY();
-    }
-
-    /**
-     * Purpose: makes mouse detection easier by defining coordinates and borders
-     * @param x1 lower limit of mouseX
-     * @param x2 upper limit of mouseX
-     * @param y1 lower limit of mouseY
-     * @param y2 upper limit of mouseY
-     * @return if the mouse is within the defined borders
-     */
-    public boolean mouseDetect(int x1,int x2,int y1,int y2){
-        return(mouseX>=x1 && mouseX<=x2 && mouseY>=y1 && mouseY<=y2);
-    }
-
-    //Unused methods
-    public void keyTyped(KeyEvent e) {}
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) {}
-    public void mouseReleased(MouseEvent e) {}
-    public void mouseDragged(MouseEvent e) {}
-    
-    /**
-     * Purpose: method to draw to the JPanel
-     * @param g the Graphics object
-     */
-    public void paint(Graphics g) {
-        update();
         g.setColor(backgroundC);
         g.fillRect(0, 0, 800, 500);
         for(int i=0;i<walls.size();i++){
@@ -330,7 +349,7 @@ public class SecondLevel extends Level{
         if(mapOpen){
             g.drawImage(map,200,30,400,400,null);
         }
-        System.out.println(playerX+","+playerY);
+        //System.out.println(playerX+","+playerY);
         g.setFont(smallSerifFont);
         g.setColor(grey);
         g.drawString("Goal: Navigate your way out of the building.",20,50);
@@ -355,6 +374,7 @@ public class SecondLevel extends Level{
             g.setColor(grey);
             g.drawString("Congrats, you made it out of the building!",200,200);
             g.drawString("Press SPACE to continue.",270,300);
+        }
         }
     }
 

@@ -128,11 +128,12 @@ public class FirstLevel extends Level{
         if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && instructionsDone && !checkGoal()){
             up=true;
         }
-        if (index<3 && e.getKeyCode() == KeyEvent.VK_ENTER){
+        if (index<4 && e.getKeyCode() == KeyEvent.VK_ENTER){
             index++;
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
             if(checkGoal()){
+                index=0;
                 first=false;
             }else if(!instructionsDone){
                 instructionsDone=true;
@@ -252,6 +253,15 @@ public class FirstLevel extends Level{
             g.drawString("Press ENTER to continue...",450,390);
         }
         if(index==3){
+            g.setColor(Color.BLACK);
+            g.fillRect(0,0,800,500);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Serif", Font.PLAIN, 50));
+            g.drawString("LEVEL ONE",250,225);
+            g.setFont(new Font("Serif", Font.PLAIN, 20));
+            g.drawString("Press ENTER to continue...",550,450);
+        }
+        if(index==4){
         g.setColor(backgroundC);
         g.fillRect(0, 0, 800, 500);
         for(int i=0;i<walls.size();i++){

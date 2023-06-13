@@ -34,6 +34,7 @@ public class ThirdLevel extends Level{
     private Image computer;
     private Image ink;
     private Image paper;
+    private Image teacher;
     /**
      * ArrayLists to store walls and antiwalls
      */
@@ -107,6 +108,11 @@ public class ThirdLevel extends Level{
     });
 
     /**
+     * Index to determine which scene of level 1 we are on
+     */
+    private int index;
+
+    /**
      * Purpose: Constructor to create ThirdLevel object
      */
     public ThirdLevel() {
@@ -138,6 +144,7 @@ public class ThirdLevel extends Level{
         goals[4]="Out of ink! Go to the Social Office to get ink.";
         goals[5]="Go to room 114 to put the ink in the printer.";
         goals[6]="Go to room 111 to hand in your paper to the teacher.";
+        index = 0;
         try {
             map = ImageIO.read(new File("assets/map3.png"));
             mapIcon = ImageIO.read(new File("assets/mapIcon.png"));
@@ -149,9 +156,149 @@ public class ThirdLevel extends Level{
             computer = ImageIO.read(new File("assets/computer.png"));
             ink = ImageIO.read(new File("assets/ink.png"));
             paper = ImageIO.read(new File("assets/paper.png"));
+            teacher = ImageIO.read(new File("assets/teacher.png"));
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Purpose: Handles the key press event.
+     * @param e the KeyEvent object
+     */
+    public void keyPressed(KeyEvent e) {
+        if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && instructionsDone && !checkGoal() && !failed){
+            right=true;
+        }
+        if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) && instructionsDone && !checkGoal() && !failed){
+            left=true;
+        }  
+        if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) && instructionsDone && !checkGoal() && !failed){
+            down=true;
+        }
+        if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && instructionsDone && !checkGoal() && !failed){
+            up=true;
+        }
+        if (index<1 && e.getKeyCode() == KeyEvent.VK_ENTER){
+            index++;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            if(!instructionsDone){
+                instructionsDone=true;
+                timer.start();
+            }
+            if(failed){
+                restart();
+                instructionsDone=true;
+                timer.start();
+            }
+            else if(checkGoal()){
+                if(stage==0){
+                    goalX=-700+400;
+                    goalY=-140+250;
+                    stage++;
+                }else if(stage==1){
+                    goalX=1220+400;
+                    goalY=-880+250;
+                    stage++;
+                }else if(stage==2){
+                    goalX=-700+400;
+                    goalY=-140+250;
+                    stage++;
+                }else if(stage==3){
+                    goalX=-20+400;
+                    goalY=-1600+250;
+                    stage++;
+                }else if(stage==4){
+                    goalX=-700+400;
+                    goalY=-140+250;
+                    stage++;
+                }else if(stage==5){
+                    goalX=-960+400;
+                    goalY=-1540+400;
+                    stage++;
+                }else if(stage==6){
+                    index=0;
+                    third=false;                
+                }
+            }
+        }
+    }
+    
+    /**
+     * Purpose: Handles the key release event.
+     * @param e the KeyEvent object
+     */
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
+            right=false;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
+            left=false;
+        }  
+        if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
+            down=false;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
+            up=false;
+        }
+    }
+   
+    /**
+     * Purpose: Handles the mouse click event.
+     * @param e the MouseEvent object
+     */
+    public void mouseClicked(MouseEvent e) {
+        if(mouseDetect(708,758,57,105)){
+            mapOpen=!mapOpen;
+        }
+    }
+
+    /**
+     * Purpose: Handles the mouse move event.
+     * @param e the MouseEvent object
+     */
+    public void mouseMoved(MouseEvent e) {
+        mouseX=e.getX();
+        mouseY=e.getY();
+    }
+
+    /**
+     * Purpose: makes mouse detection easier by defining coordinates and borders
+     * @param x1 lower limit of mouseX
+     * @param x2 upper limit of mouseX
+     * @param y1 lower limit of mouseY
+     * @param y2 upper limit of mouseY
+     * @return if the mouse is within the defined borders
+     */
+    public boolean mouseDetect(int x1,int x2,int y1,int y2){
+        return(mouseX>=x1 && mouseX<=x2 && mouseY>=y1 && mouseY<=y2);
+    }
+
+    public void keyTyped(KeyEvent e) {}
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {}
+    public void mouseDragged(MouseEvent e) {}
+    
+    
+    /**
+     * Purpose: method to draw to the JPanel
+     * @param g the Graphics object
+     */
+    public void paint(Graphics g) {
+        update();
+        if(index==0){
+            g.setColor(Color.BLACK);
+            g.fillRect(0,0,800,500);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Serif", Font.PLAIN, 50));
+            g.drawString("LEVEL THREE",250,225);
+            g.setFont(new Font("Serif", Font.PLAIN, 20));
+            g.drawString("Press ENTER to continue...",550,450);
+        }
+        if(index==1){
         //walls
         if(true){
         //library
@@ -276,131 +423,6 @@ public class ThirdLevel extends Level{
         //room 105
         addRect(770,-1700,380,200);
         }
-    }
-
-    /**
-     * Purpose: Handles the key press event.
-     * @param e the KeyEvent object
-     */
-    public void keyPressed(KeyEvent e) {
-        if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) && instructionsDone && !checkGoal() && !failed){
-            right=true;
-        }
-        if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) && instructionsDone && !checkGoal() && !failed){
-            left=true;
-        }  
-        if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) && instructionsDone && !checkGoal() && !failed){
-            down=true;
-        }
-        if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) && instructionsDone && !checkGoal() && !failed){
-            up=true;
-        }
-        if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            if(!instructionsDone){
-                instructionsDone=true;
-                timer.start();
-            }
-            if(failed){
-                restart();
-                instructionsDone=true;
-                timer.start();
-            }
-            else if(checkGoal()){
-                if(stage==0){
-                    goalX=-700+400;
-                    goalY=-140+250;
-                    stage++;
-                }else if(stage==1){
-                    goalX=1220+400;
-                    goalY=-880+250;
-                    stage++;
-                }else if(stage==2){
-                    goalX=-700+400;
-                    goalY=-140+250;
-                    stage++;
-                }else if(stage==3){
-                    goalX=-20+400;
-                    goalY=-1600+250;
-                    stage++;
-                }else if(stage==4){
-                    goalX=-700+400;
-                    goalY=-140+250;
-                    stage++;
-                }else if(stage==5){
-                    goalX=-960+400;
-                    goalY=-1540+400;
-                    stage++;
-                }else if(stage==6){
-                    third=false;                
-                }
-            }
-        }
-    }
-    
-    /**
-     * Purpose: Handles the key release event.
-     * @param e the KeyEvent object
-     */
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D){
-            right=false;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A){
-            left=false;
-        }  
-        if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S){
-            down=false;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){
-            up=false;
-        }
-    }
-   
-    /**
-     * Purpose: Handles the mouse click event.
-     * @param e the MouseEvent object
-     */
-    public void mouseClicked(MouseEvent e) {
-        if(mouseDetect(708,758,57,105)){
-            mapOpen=!mapOpen;
-        }
-    }
-
-    /**
-     * Purpose: Handles the mouse move event.
-     * @param e the MouseEvent object
-     */
-    public void mouseMoved(MouseEvent e) {
-        mouseX=e.getX();
-        mouseY=e.getY();
-    }
-
-    /**
-     * Purpose: makes mouse detection easier by defining coordinates and borders
-     * @param x1 lower limit of mouseX
-     * @param x2 upper limit of mouseX
-     * @param y1 lower limit of mouseY
-     * @param y2 upper limit of mouseY
-     * @return if the mouse is within the defined borders
-     */
-    public boolean mouseDetect(int x1,int x2,int y1,int y2){
-        return(mouseX>=x1 && mouseX<=x2 && mouseY>=y1 && mouseY<=y2);
-    }
-
-    public void keyTyped(KeyEvent e) {}
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) {}
-    public void mouseReleased(MouseEvent e) {}
-    public void mouseDragged(MouseEvent e) {}
-    
-    
-    /**
-     * Purpose: method to draw to the JPanel
-     * @param g the Graphics object
-     */
-    public void paint(Graphics g) {
-        update();
         g.setColor(backgroundC);
         g.fillRect(0, 0, 800, 500);
         for(int i=0;i<walls.size();i++){
@@ -420,6 +442,7 @@ public class ThirdLevel extends Level{
         g.drawImage(computer,1080-playerX-100,-1000-playerY-50,null); //computer
         g.drawImage(ink,-20+400-playerX-25,-1600+250-playerY-25,null); //ink
         g.drawImage(paper,1220+400-playerX-15,-880+250-playerY-12,null); //paper
+        g.drawImage(teacher,-960+400-playerX-25,-1540+400-playerY-25,null); //teacher
         if(stage>=3){
             g.setColor(backgroundC);
             g.fillRect(1220+400-playerX-50,-880+250-playerY-50,100,100); //paper remove
@@ -502,6 +525,7 @@ public class ThirdLevel extends Level{
             g.drawString("Uh oh, you were too slow!",270,200);
             g.drawString("Press SPACE to try again.",270,300);
             timer.stop();
+        }
         }
     }
 
