@@ -48,6 +48,11 @@ public class FirstLevel extends JPanel{
     private boolean wrong;
 
     /**
+     * count number of guesses
+     */
+    private int guesses;
+
+    /**
      * Purpose: Constructs the FirstLevel object
      */
     public FirstLevel() {
@@ -57,6 +62,8 @@ public class FirstLevel extends JPanel{
         first=true;
         playerIcons = new Image[4];
         index = 0;
+        wrong=true;
+        guesses=0;
         try {
             bgInst = ImageIO.read(new File("assets/background.jpg"));
             map = ImageIO.read(new File("assets/map1.png"));
@@ -76,11 +83,11 @@ public class FirstLevel extends JPanel{
      * @param e the KeyEvent object
      */
     public void keyPressed(KeyEvent e) {
-        if (index<7 && e.getKeyCode() == KeyEvent.VK_ENTER){
-            if(index<4){
+        if (index<12 && e.getKeyCode() == KeyEvent.VK_ENTER){
+            if(index<5 || index==6 || index==8 || index==10 || index==12){
                 index++;
             }
-            else if(index==4 && !wrong){
+            else if((index==5 || index==7 || index==9 || index==11) && !wrong){
                 index++;
                 wrong=true;
             }
@@ -98,23 +105,73 @@ public class FirstLevel extends JPanel{
      * @param e the MouseEvent object
      */
     public void mouseClicked(MouseEvent e) {
-        /*g.drawRect(150,150,250,100);
-            g.drawRect(150,250,250,100);
-            g.drawRect(400,150,250,100);
-            g.drawRect(400,250,250,100);*/
-        if(index==4){
-        if(mouseDetect(150,400,150,250)){
-            wrong=false;
+        if(index==5){
+            if(mouseDetect(158,408,181,281)){
+                index++;
+                wrong=false;
+                guesses=0;
+            }
+            if(mouseDetect(158,408,281,381)){
+                wrong=true;
+                guesses++;
+            }
+            if(mouseDetect(408,658,181,281)){
+                wrong=true;
+                guesses++;
+            }
+            if(mouseDetect(408,658,281,381)){
+                wrong=true;
+                guesses++;
+            }
         }
-        if(mouseDetect(150,400,250,350)){
-            wrong=true;
+        if(index==7){
+            if(mouseDetect(158,408,181,281)){
+                wrong=true;
+                guesses++;
+            }
+            if(mouseDetect(158,408,281,381)){
+                index++;
+                wrong=false;
+                guesses=0;
+            }
+            if(mouseDetect(408,658,181,281)){
+                wrong=true;
+                guesses++;
+            }
+            if(mouseDetect(408,658,281,381)){
+                wrong=true;
+                guesses++;
+            }
         }
-        if(mouseDetect(400,650,150,250)){
-            wrong=true;
+        if(index==9){
+            if(mouseDetect(158,408,181,281)){
+                wrong=true;
+                guesses++;
+            }
+            if(mouseDetect(158,408,281,381)){
+                wrong=true;
+                guesses++;
+            }
+            if(mouseDetect(408,658,181,281)){
+                wrong=true;
+                guesses++;
+            }
+            if(mouseDetect(408,658,281,381)){
+                index++;
+                wrong=false;
+                guesses=0;
+            }
         }
-        if(mouseDetect(400,650,250,350)){
-            wrong=true;
-        }
+        if(index==11){
+            if(mouseDetect(158,408,181,281)){
+                index++;
+                wrong=false;
+                guesses=0;
+            }
+            if(mouseDetect(408,658,181,281)){
+                wrong=true;
+                guesses++;
+            }
         }
     }
 
@@ -201,6 +258,29 @@ public class FirstLevel extends JPanel{
             g.drawString("Press ENTER to continue...",450,390);
         }
         if(index==3){
+            g.drawImage(bgInst,0,0,800,500,null);
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.setFont(new Font("Serif", Font.PLAIN, 20));
+            g.drawString("TIPS:",130,80);
+            g.drawString("1) First, open up the map",130,120);
+            g.drawString("2) Then, try to find where you are on the map",130,145);
+            g.drawString("3) Don't rush to run around, be patient and observe your",130,170);
+            g.drawString("    surroundings",130,195);
+            g.drawString("4) Use clues such as the wall structures nearby to determine your",130,220);
+            g.drawString("    location and guide you",130,245);
+            g.drawString("5) If the map is too large and overwhelming, try to break it down in",130,270);
+            g.drawString("    to smaller sections mentally to better observe familiar areas",130,295);
+            g.drawString("6) Be confident in your decisions, and take a mental note of your",130,320);
+            g.drawString("    location along the map",130,345);
+            g.setFont(smallSerifFont);
+            g.setFont(new Font("Serif", Font.PLAIN, 20));
+            g.drawString("Press ENTER to  continue...",450,390);
+        }
+        if(index==4){
             g.setColor(Color.BLACK);
             g.fillRect(0,0,800,500);
             g.setColor(Color.WHITE);
@@ -208,27 +288,6 @@ public class FirstLevel extends JPanel{
             g.drawString("LEVEL ONE",250,225);
             g.setFont(new Font("Serif", Font.PLAIN, 20));
             g.drawString("Press ENTER to continue...",550,450);
-        }
-        if(index==4){
-            g.drawImage(bgInst,0,0,800,500,null);
-            g.setColor(deepBlue);
-            g.fillRect(100,30,600,390);
-            g.setColor(backgroundC);
-            g.fillRect(120,50,560,350);
-            g.setColor(grey);
-            g.setFont(smallSerifFont);
-            g.drawString("What is the first thing you do when",150,100);
-            g.drawString("navigating a new environment?",150,130);
-            g.drawRect(120,50,560,350);
-            g.drawRect(150,150,250,100);
-            g.drawRect(150,250,250,100);
-            g.drawRect(400,150,250,100);
-            g.drawRect(400,250,250,100);
-            g.drawString("Open map",160,200);
-            g.drawString("Wander aimlessly",410,200);
-            g.drawString("Leave the building",160,300);
-            g.drawString("Panic and scream",410,300);
-            g.drawString(mouseX+","+mouseY,mouseX,mouseY);
         }
         if(index==5){
             g.drawImage(bgInst,0,0,800,500,null);
@@ -238,9 +297,11 @@ public class FirstLevel extends JPanel{
             g.fillRect(120,50,560,350);
             g.setColor(grey);
             g.setFont(smallSerifFont);
-            g.drawString("What is the first thing you do when",150,100);
+            g.drawString("Q: What is the first thing you do when",150,100);
             g.drawString("navigating a new environment?",150,130);
+            g.setColor(deepBlue);
             g.drawRect(120,50,560,350);
+            g.setColor(grey);
             g.drawRect(150,150,250,100);
             g.drawRect(150,250,250,100);
             g.drawRect(400,150,250,100);
@@ -249,28 +310,32 @@ public class FirstLevel extends JPanel{
             g.drawString("Wander aimlessly",410,200);
             g.drawString("Leave the building",160,300);
             g.drawString("Panic and scream",410,300);
-            //g.drawString(mouseX+","+mouseY,mouseX,mouseY);
+            g.setColor(backgroundC);
+            g.fillRect(125,370,250,25);
+            if(wrong && guesses > 0){
+                g.setColor(grey);
+                g.setFont(smallSerifFont);
+                g.drawString("Incorrect. Try Again!",125,390);
+            }
+            if(!wrong){
+                g.setFont(new Font("Serif", Font.PLAIN, 20));
+                g.drawString("Press ENTER to continue...",450,390);
+            }
+            g.setColor(grey);
         }
         if(index==6){
+            wrong=true;
             g.drawImage(bgInst,0,0,800,500,null);
             g.setColor(deepBlue);
-            g.fillRect(100,30,600,390);
+            g.fillRect(220,155,320,110);
             g.setColor(backgroundC);
-            g.fillRect(120,50,560,350);
-            g.setColor(grey);
-            g.setFont(smallSerifFont);
-            g.drawString("What is the first thing you do when",150,100);
-            g.drawString("navigating a new environment?",150,130);
-            g.drawRect(120,50,560,350);
-            g.drawRect(150,150,250,100);
-            g.drawRect(150,250,250,100);
-            g.drawRect(400,150,250,100);
-            g.drawRect(400,250,250,100);
-            g.drawString("Open map",160,200);
-            g.drawString("Wander aimlessly",410,200);
-            g.drawString("Leave the building",160,300);
-            g.drawString("Panic and scream",410,300);
-            //g.drawString(mouseX+","+mouseY,mouseX,mouseY);
+            g.fillRect(230,165,300,90);
+            g.setColor(Color.GREEN);
+            g.setFont(new Font("Serif", Font.PLAIN, 50));
+            g.drawString("CORRECT!",250,225);
+            g.setFont(new Font("Serif", Font.PLAIN, 30));
+            g.setColor(deepBlue);
+            g.drawString("Press ENTER to continue...",450,390);
         }
         if(index==7){
             g.drawImage(bgInst,0,0,800,500,null);
@@ -280,27 +345,129 @@ public class FirstLevel extends JPanel{
             g.fillRect(120,50,560,350);
             g.setColor(grey);
             g.setFont(smallSerifFont);
-            g.drawString("What is the first thing you do when",150,100);
-            g.drawString("navigating a new environment?",150,130);
+            g.drawString("Q: What is the best attitude to have",150,100);
+            g.drawString("when navigating a new environment?",150,130);
             g.drawRect(120,50,560,350);
             g.drawRect(150,150,250,100);
             g.drawRect(150,250,250,100);
             g.drawRect(400,150,250,100);
             g.drawRect(400,250,250,100);
-            g.drawString("Open map",160,200);
-            g.drawString("Wander aimlessly",410,200);
-            g.drawString("Leave the building",160,300);
-            g.drawString("Panic and scream",410,300);
-            //g.drawString(mouseX+","+mouseY,mouseX,mouseY);
-        }
-        if(index>=4){
-            if(wrong){
-                g.drawString("Incorrect. Try Again!",50,400);
+            g.drawString("Impatient",160,200);
+            g.drawString("Undetermined",405,200);
+            g.drawString("Confident",160,300);
+            g.drawString("Scared",410,300);
+            g.setColor(backgroundC);
+            g.fillRect(125,370,250,25);
+            if(wrong && guesses > 0){
+                g.setColor(grey);
+                g.setFont(smallSerifFont);
+                g.drawString("Incorrect. Try Again!",125,390);
             }
             if(!wrong){
                 g.setFont(new Font("Serif", Font.PLAIN, 20));
                 g.drawString("Press ENTER to continue...",450,390);
             }
+            g.setColor(grey);
+        }
+        if(index==8){
+            wrong=true;
+            g.drawImage(bgInst,0,0,800,500,null);
+            g.setColor(deepBlue);
+            g.fillRect(220,155,320,110);
+            g.setColor(backgroundC);
+            g.fillRect(230,165,300,90);
+            g.setColor(Color.GREEN);
+            g.setFont(new Font("Serif", Font.PLAIN, 50));
+            g.drawString("CORRECT!",250,225);
+            g.setFont(new Font("Serif", Font.PLAIN, 30));
+            g.setColor(deepBlue);
+            g.drawString("Press ENTER to continue...",450,390);
+        }
+        if(index==9){
+            g.drawImage(bgInst,0,0,800,500,null);
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.setFont(smallSerifFont);
+            g.drawString("What clue can you use to determine your location?",150,100);
+            g.drawRect(120,50,560,350);
+            g.drawRect(150,150,250,100);
+            g.drawRect(150,250,250,100);
+            g.drawRect(400,150,250,100);
+            g.drawRect(400,250,250,100);
+            g.drawString("A megaphone",160,200);
+            g.drawString("Your shoes",410,200);
+            g.drawString("The sky",160,300);
+            g.drawString("Wall structures",410,300);
+            g.setColor(backgroundC);
+            g.fillRect(125,370,250,25);
+            if(wrong && guesses > 0){
+                g.setColor(grey);
+                g.setFont(smallSerifFont);
+                g.drawString("Incorrect. Try Again!",125,390);
+            }
+            if(!wrong){
+                g.setFont(new Font("Serif", Font.PLAIN, 20));
+                g.drawString("Press ENTER to continue...",450,390);
+            }
+            g.setColor(grey);
+        }
+        if(index==10){
+            wrong=true;
+            g.drawImage(bgInst,0,0,800,500,null);
+            g.setColor(deepBlue);
+            g.fillRect(220,155,320,110);
+            g.setColor(backgroundC);
+            g.fillRect(230,165,300,90);
+            g.setColor(Color.GREEN);
+            g.setFont(new Font("Serif", Font.PLAIN, 50));
+            g.drawString("CORRECT!",250,225);
+            g.setFont(new Font("Serif", Font.PLAIN, 30));
+            g.setColor(deepBlue);
+            g.drawString("Press ENTER to continue...",450,390);
+        }
+        if(index==11){
+            g.drawImage(bgInst,0,0,800,500,null);
+            g.setColor(deepBlue);
+            g.fillRect(100,30,600,390);
+            g.setColor(backgroundC);
+            g.fillRect(120,50,560,350);
+            g.setColor(grey);
+            g.setFont(smallSerifFont);
+            g.drawString("It is recommended to be patient when navigating.",150,100);
+            g.drawRect(120,50,560,350);
+            g.drawRect(150,150,250,100);
+            g.drawRect(400,150,250,100);
+            g.drawString("True",160,200);
+            g.drawString("False",410,200);
+            g.setColor(backgroundC);
+            g.fillRect(125,370,250,25);
+            if(wrong && guesses > 0){
+                g.setColor(grey);
+                g.setFont(smallSerifFont);
+                g.drawString("Incorrect. Try Again!",125,390);
+            }
+            if(!wrong){
+                g.setFont(new Font("Serif", Font.PLAIN, 20));
+                g.drawString("Press ENTER to continue...",450,390);
+            }
+            g.setColor(grey);
+        }
+        if(index==12){
+            wrong=true;
+            g.drawImage(bgInst,0,0,800,500,null);
+            g.setColor(deepBlue);
+            g.fillRect(220,155,320,110);
+            g.setColor(backgroundC);
+            g.fillRect(230,165,300,90);
+            g.setColor(Color.GREEN);
+            g.setFont(new Font("Serif", Font.PLAIN, 50));
+            g.drawString("CORRECT!",250,225);
+            g.setFont(new Font("Serif", Font.PLAIN, 30));
+            g.setColor(deepBlue);
+            g.drawString("Press ENTER to continue...",450,390);
         }
     }
 
