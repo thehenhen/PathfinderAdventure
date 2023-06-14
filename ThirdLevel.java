@@ -717,10 +717,11 @@ public class ThirdLevel extends Level{
      * Purpose: Resets the level by resetting all variables 
      */
     public void restart(){
-        goalX=400;
-        goalY=-200;
+        goalX=1080;
+        goalY=-1000;
         facing=0;
         instructionsDone=false;
+        secondsPassed=0;
         playerX=-440;
         playerY=-1100;
         mapOpen=false;
