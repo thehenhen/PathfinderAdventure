@@ -23,6 +23,8 @@ public class FirstLevel extends JPanel{
      */
     private Font smallSerifFont = new Font("Serif", Font.PLAIN, 25);
     private Color backgroundC = new Color(227, 215, 182);
+    private Color button1 = new Color(168, 153, 111);
+    private Color button2 = new Color(120, 104, 61);
     private Color grey = new Color(68, 69, 69);
     private Color deepBlue = new Color(11, 58, 84);
 
@@ -84,13 +86,16 @@ public class FirstLevel extends JPanel{
      */
     public void keyPressed(KeyEvent e) {
         if (index<12 && e.getKeyCode() == KeyEvent.VK_ENTER){
-            if(index<5 || index==6 || index==8 || index==10 || index==12){
+            if(index<5 || index==6 || index==8 || index==10){
                 index++;
             }
             else if((index==5 || index==7 || index==9 || index==11) && !wrong){
                 index++;
                 wrong=true;
             }
+        }else if(index==12 && e.getKeyCode() == KeyEvent.VK_ENTER){
+            restart();
+            first=false;
         }
     }
     
@@ -301,11 +306,32 @@ public class FirstLevel extends JPanel{
             g.drawString("navigating a new environment?",150,130);
             g.setColor(deepBlue);
             g.drawRect(120,50,560,350);
+            
+            g.setColor(button1);
+            g.fillRect(150,150,250,100);
+            g.fillRect(150,250,250,100);
+            g.fillRect(400,150,250,100);
+            g.fillRect(400,250,250,100);
+            g.setColor(button2);
+            if(mouseDetect(158,408,181,281)){
+                g.fillRect(150,150,250,100);
+            }
+            if(mouseDetect(158,408,281,381)){
+                g.fillRect(150,250,250,100);
+            }
+            if(mouseDetect(408,658,181,281)){
+                g.fillRect(400,150,250,100);
+            }
+            if(mouseDetect(408,658,281,381)){
+                g.fillRect(400,250,250,100);
+            }
+
             g.setColor(grey);
             g.drawRect(150,150,250,100);
             g.drawRect(150,250,250,100);
             g.drawRect(400,150,250,100);
             g.drawRect(400,250,250,100);
+            g.setColor(grey);
             g.drawString("Open map",160,200);
             g.drawString("Wander aimlessly",410,200);
             g.drawString("Leave the building",160,300);
@@ -347,6 +373,26 @@ public class FirstLevel extends JPanel{
             g.setFont(smallSerifFont);
             g.drawString("Q: What is the best attitude to have",150,100);
             g.drawString("when navigating a new environment?",150,130);
+
+            g.setColor(button1);
+            g.fillRect(150,150,250,100);
+            g.fillRect(150,250,250,100);
+            g.fillRect(400,150,250,100);
+            g.fillRect(400,250,250,100);
+            g.setColor(button2);
+            if(mouseDetect(158,408,181,281)){
+                g.fillRect(150,150,250,100);
+            }
+            if(mouseDetect(158,408,281,381)){
+                g.fillRect(150,250,250,100);
+            }
+            if(mouseDetect(408,658,181,281)){
+                g.fillRect(400,150,250,100);
+            }
+            if(mouseDetect(408,658,281,381)){
+                g.fillRect(400,250,250,100);
+            }
+            g.setColor(grey);
             g.drawRect(120,50,560,350);
             g.drawRect(150,150,250,100);
             g.drawRect(150,250,250,100);
@@ -392,6 +438,25 @@ public class FirstLevel extends JPanel{
             g.setColor(grey);
             g.setFont(smallSerifFont);
             g.drawString("What clue can you use to determine your location?",150,100);
+            g.setColor(button1);
+            g.fillRect(150,150,250,100);
+            g.fillRect(150,250,250,100);
+            g.fillRect(400,150,250,100);
+            g.fillRect(400,250,250,100);
+            g.setColor(button2);
+            if(mouseDetect(158,408,181,281)){
+                g.fillRect(150,150,250,100);
+            }
+            if(mouseDetect(158,408,281,381)){
+                g.fillRect(150,250,250,100);
+            }
+            if(mouseDetect(408,658,181,281)){
+                g.fillRect(400,150,250,100);
+            }
+            if(mouseDetect(408,658,281,381)){
+                g.fillRect(400,250,250,100);
+            }
+            g.setColor(grey);
             g.drawRect(120,50,560,350);
             g.drawRect(150,150,250,100);
             g.drawRect(150,250,250,100);
@@ -437,6 +502,17 @@ public class FirstLevel extends JPanel{
             g.setColor(grey);
             g.setFont(smallSerifFont);
             g.drawString("It is recommended to be patient when navigating.",150,100);
+            g.setColor(button1);
+            g.fillRect(150,150,250,100);
+            g.fillRect(400,150,250,100);
+            g.setColor(button2);
+            if(mouseDetect(158,408,181,281)){
+                g.fillRect(150,150,250,100);
+            }
+            if(mouseDetect(408,658,181,281)){
+                g.fillRect(400,150,250,100);
+            }
+            g.setColor(grey);
             g.drawRect(120,50,560,350);
             g.drawRect(150,150,250,100);
             g.drawRect(400,150,250,100);
