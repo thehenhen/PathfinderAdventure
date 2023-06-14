@@ -564,7 +564,7 @@ public class SecondLevel extends Level{
      */
     public void restart(){
         goalX=400;
-        goalY=-200;
+        goalY=200;
         facing=0;
         instructionsDone=false;
         playerX=-440;

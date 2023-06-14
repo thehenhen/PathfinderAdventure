@@ -725,6 +725,7 @@ public class ThirdLevel extends Level{
         playerY=-1100;
         mapOpen=false;
         third=true;
+        index=0;
     }
 
     /**
