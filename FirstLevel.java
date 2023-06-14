@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.imageio.ImageIO;
 import java.io.*;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -12,7 +11,6 @@ public class FirstLevel extends JPanel{
     /**
      * Images to display
      */
-    private Image map;
     private Image mapIcon;
     private Image bgInst;
     private Image goalReachImage;
@@ -68,7 +66,6 @@ public class FirstLevel extends JPanel{
         guesses=0;
         try {
             bgInst = ImageIO.read(new File("assets/background.jpg"));
-            map = ImageIO.read(new File("assets/map1.png"));
             goalReachImage = ImageIO.read(new File("assets/goalReach.png"));
             mapIcon = ImageIO.read(new File("assets/mapIcon.png"));
             playerIcons[0] = ImageIO.read(new File("assets/playerDownRight.png"));
